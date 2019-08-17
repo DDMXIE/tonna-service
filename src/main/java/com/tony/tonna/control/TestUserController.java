@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class TestUserController {
@@ -26,13 +28,15 @@ public class TestUserController {
 
 
     @RequestMapping("/data")
-    public User test(){
+    public Map test(){
+        HashMap outputdata  = new HashMap();
         User user = new User();
         user.setUId(uuidUtil.createUUid());
         user.setAge(12);
         user.setName("phpfzh");
         testUserService.saveUser(user);//实现数据更新
-        return user;
+        outputdata.put("USER_INFO",user);
+        return outputdata;
     }
 
 }

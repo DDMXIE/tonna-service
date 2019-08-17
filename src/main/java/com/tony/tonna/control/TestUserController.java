@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,6 +36,17 @@ public class TestUserController {
         testUserService.saveUser(user);//实现数据更新
         outputdata.put("USER_INFO",user);
         return outputdata;
+    }
+
+    /**
+     * Restful GET 获取前端参数
+     * @param username
+     * @param userage
+     */
+    @RequestMapping(value="/user",method=RequestMethod.GET)
+    public void query(@RequestParam(name="username",required = true) String username,@RequestParam(name="userage",required = true) String userage){
+        System.out.println(username);
+        System.out.println(userage);
     }
 
 }

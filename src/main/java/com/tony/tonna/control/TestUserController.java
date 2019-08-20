@@ -23,7 +23,10 @@ public class TestUserController {
     @Autowired
     private TestUserService testUserService;
 
-
+    /**
+     * 测试接口，返回数据
+     * @return
+     */
     @RequestMapping("/data")
     public Map test(){
         HashMap outputdata  = new HashMap();

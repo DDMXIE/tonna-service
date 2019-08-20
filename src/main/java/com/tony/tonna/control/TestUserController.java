@@ -25,7 +25,7 @@ public class TestUserController {
 
     /**
      * 测试接口，返回数据
-     * @return
+     * @return Map
      */
     @RequestMapping("/data")
     public Map test(){

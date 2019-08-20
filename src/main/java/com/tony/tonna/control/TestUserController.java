@@ -40,7 +40,7 @@ public class TestUserController {
     }
 
     /**
-     * Restful GET 获取前端参数
+     * Restful GET 获取前端参数 无返回值
      * @param username
      * @param userage
      */

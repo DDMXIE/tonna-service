@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tony.tonna.mapper.UserMapper">
+    <select id="loadUserByUsername" resultType="com.tony.tonna.entity.User">
+        select * from USER where USER_NAME=#{userName}
+    </select>
+    <select id="getUserRolesByUid" resultType="com.tony.tonna.entity.Role">
+        select * from ROLE r,USER_ROLE ur where r.ROLE_ID=ur.R_ID and ur.U_ID=#{uid}
+    </select>
+
+    <insert id="saveSignUser" parameterType="com.tony.tonna.entity.User">
+        INSERT INTO USER(USER_ID,USER_NAME,USER_PASSWORD,USER_ENABLED,USER_LOCKED) VALUES (#{USER_ID},#{USER_NAME},#{USER_PASSWORD},#{USER_ENABLED},#{USER_LOCKED})
+    </insert>
+
+    <insert id="saveUserRole">
+        INSERT INTO USER_ROLE(USER_ROLE_ID, U_ID, R_ID) VALUES (#{userRoleId},#{uid},#{rid})
+    </insert>
+
+    <select id="showAllRoleInfo" resultType="com.tony.tonna.entity.Role">
+        select * from ROLE r
+    </select>
+
+    <insert id="saveUserToken">
+        INSERT INTO USER_TOKEN(USER_TOKEN_ID, U_ID, T_ID) VALUES (#{userTokenId},#{uid},#{token})
+    </insert>
+
+    <select id="getTokenByUserId" resultType="String">
+        select ut.T_ID from USER_TOKEN ut where ut.U_ID=#{uid}
+    </select>
+
+    <delete id="deleteUserTokenByUid">
+        DELETE FROM USER_TOKEN WHERE U_ID = #{uid}
+    </delete>
+</mapper>

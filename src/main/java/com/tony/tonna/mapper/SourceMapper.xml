@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tony.tonna.mapper.SourceMapper">
+    <resultMap id="BaseResultMap" type="com.tony.tonna.entity.Source">
+        <id property="SOURCE_ID" column="SOURCE_ID"/>
+        <result property="SOURCE_PATTERN" column="SOURCE_PATTERN"/>
+        <collection property="SOURCE_ROLES" ofType="com.tony.tonna.entity.Role">
+            <id property="ROLE_ID" column="ROLE_ID"/>
+            <result property="ROLE_NAME" column="ROLE_NAME"/>
+            <result property="ROLE_NAME_DSCP" column="ROLE_NAME_DSCP"/>
+        </collection>
+    </resultMap>
+    <select id="getAllSources" resultMap="BaseResultMap">
+        SELECT S.*,R.ROLE_ID AS ROLE_ID,R.ROLE_NAME AS ROLE_NAME,R.ROLE_NAME_DSCP AS ROLE_NAME_DSCP FROM SOURCE S LEFT JOIN SOURCE_ROLE SR ON S.`SOURCE_ID`=SR.`S_ID` LEFT JOIN ROLE R ON SR.`R_ID`=R.`ROLE_ID`
+    </select>
+</mapper>

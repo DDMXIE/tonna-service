@@ -129,7 +129,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         try{
                             ValueOperations ops1 = redisTemplate.opsForValue();
                             //设置redis的key过期时间
-                            ops1.set(token,principal,60, TimeUnit.SECONDS);
+//                            ops1.set(token,principal,60, TimeUnit.SECONDS);
+                            ops1.set(token,principal,10, TimeUnit.MINUTES);
                             User userInfo = (User) ops1.get(token);
                             System.out.println(userInfo.getUSER_NAME()+" 已登录！");
                         }catch (Exception e){

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tony.tonna.mapper.MessageMapper">
+
+    <insert id="addMessageByAdmin" parameterType="com.tony.tonna.entity.Message">
+        INSERT INTO MESSAGE(MESSAGE_ID, MESSAGE_CONTENT, CREATE_DATE, IS_DELETE) VALUES (#{MESSAGE_ID},#{MESSAGE_CONTENT},#{CREATE_DATE},#{IS_DELETE})
+    </insert>
+
+    <insert id="addUserMessageByAdmin" parameterType="string">
+        INSERT INTO USER_MESSAGE(USER_MESSAGE_ID, MESSAGE_ID, USER_ID) VALUES (#{USER_MESSAGE_ID},#{MESSAGE_ID},#{USER_ID})
+    </insert>
+
+    <select id="findMessageByAdmin" parameterType="string"  resultType="com.tony.tonna.VO.UserMessageVO">
+        SELECT M.*,UM.USER_ID FROM MESSAGE M,USER_MESSAGE UM where 1=1
+        and M.MESSAGE_ID = UM.MESSAGE_ID
+        <if test="userId!= '' and userId!= null">
+            and UM.USER_ID = #{userId}
+        </if>
+    </select>
+
+</mapper>

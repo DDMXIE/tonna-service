@@ -15,6 +15,7 @@ public class User implements UserDetails, Serializable {
     private String USER_PASSWORD;
     private Boolean USER_ENABLED;
     private Boolean USER_LOCKED;
+    private String USER_TEL;
     private List<Role> ROLES; /** 相当于关联Role **/
 //    private String token;
 
@@ -109,5 +110,13 @@ public class User implements UserDetails, Serializable {
 
     public void setROLES(List<Role> ROLES) {
         this.ROLES = ROLES;
+    }
+
+    public String getUSER_TEL() {
+        return USER_TEL;
+    }
+
+    public void setUSER_TEL(String USER_TEL) {
+        this.USER_TEL = USER_TEL;
     }
 }

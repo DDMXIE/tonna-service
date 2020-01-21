@@ -6,6 +6,7 @@ import com.tony.tonna.mapper.MessageMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,5 +34,26 @@ public class MessageService {
      */
     public List<UserMessageVO> findMessageByAdmin(String userId){
         return messageMapper.findMessageByAdmin(userId);
+    }
+
+    /**
+     * 根据id查询留言数据
+     * @return List
+     */
+    public List<Message> findMessageById(String messageId){
+        return messageMapper.findMessageById(messageId);
+    }
+
+    /**
+     * 根据留言id软删除留言数据
+     * @return List
+     */
+    public int deleteMessageByAdmin(String messageId){
+        List list = messageMapper.findMessageById(messageId);
+        int outputdata = 0;
+        if(list.size() == 1){
+            outputdata = messageMapper.deleteMessageByAdmin(messageId);
+        }
+        return outputdata;
     }
 }

@@ -13,11 +13,26 @@
     </insert>
 
     <select id="findMessageByAdmin" parameterType="string"  resultType="com.tony.tonna.VO.UserMessageVO">
-        SELECT M.*,UM.USER_ID FROM MESSAGE M,USER_MESSAGE UM where 1=1
+        SELECT M.*,UM.USER_ID,U.USER_NAME FROM MESSAGE M,USER_MESSAGE UM,USER U WHERE 1=1
         and M.MESSAGE_ID = UM.MESSAGE_ID
+        and U.USER_ID = UM.USER_ID
+        and M.IS_DELETE = '2'
+        ORDER BY M.CREATE_DATE DESC
         <if test="userId!= '' and userId!= null">
             and UM.USER_ID = #{userId}
         </if>
     </select>
+
+    <select id="findMessageById" parameterType="string"  resultType="com.tony.tonna.entity.Message">
+        SELECT M.* FROM MESSAGE M WHERE 1=1
+        <if test="messageId!= '' and messageId!= null">
+            and M.MESSAGE_ID = #{messageId}
+        </if>
+    </select>
+
+    <update id="deleteMessageByAdmin"  parameterType="string">
+         UPDATE MESSAGE SET IS_DELETE='1'
+         WHERE MESSAGE_ID=#{messageId}
+    </update>
 
 </mapper>

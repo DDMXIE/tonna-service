@@ -32,4 +32,16 @@ public interface MessageMapper {
      * @return List
      */
     List<UserMessageVO> findMessageByAdmin(@Param("userId")String userId);
+
+    /**
+     * 根据id查询留言数据
+     * @return List
+     */
+    List<Message> findMessageById(@Param("messageId")String messageId);
+
+    /**
+     * 根据留言id软删除留言数据
+     * @return int
+     */
+    int deleteMessageByAdmin(@Param("messageId")String messageId);
 }

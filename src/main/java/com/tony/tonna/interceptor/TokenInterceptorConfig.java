@@ -19,7 +19,12 @@ public class TokenInterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         /** 这里的addInterceptor方法中需要添加的是：对应新注入Bean的拦截器方法 */
         registry.addInterceptor(getTokenInterceptor())
-//                .addPathPatterns("/admin/validateTokenSayHello","/user/showUserInfoByToken");
-                .excludePathPatterns("/login");
+//                .addPathPatterns("/admin/validateTokenSayHello","/user/showUserInfoByToken","/logout");
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/**/*/*/*.JPEG","/**/*/*/*.jpeg")
+                .excludePathPatterns("/**/*/*/*.JPG","/**/*/*/*.jpg")
+                .excludePathPatterns("/**/*/*/*.PNG","/**/*/*/*.png")
+                .excludePathPatterns("/**/*/*/*.GIF","/**/*/*/*.gif");
+        ;
     }
 }

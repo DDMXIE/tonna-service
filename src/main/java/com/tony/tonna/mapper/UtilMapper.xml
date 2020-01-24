@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tony.tonna.mapper.UtilMapper">
+    <select id="findConstType"  resultType="com.tony.tonna.VO.ConstTypeVO">
+        SELECT C.* FROM CONST C WHERE 1=1
+        <if test="constType!= '' and constType!= null">
+            AND C.CONST_TYPE = #{constType}
+        </if>
+        ORDER BY C.TYPE_ID ASC
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tony.tonna.mapper.ArticleMapper">
+    <insert id="addUpdateArticle" parameterType="com.tony.tonna.entity.Article">
+        INSERT INTO ARTICLE(ARTICLE_ID, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_CONTENT_HTML, ARTICLE_ORIGIN_USER_ID, ARTICLE_SECURITY, TYPE_ID, CREATE_DATE, UPDATE_DATE, IS_DELETE)
+        VALUES (#{ARTICLE_ID},#{ARTICLE_TITLE},#{ARTICLE_CONTENT},#{ARTICLE_CONTENT_HTML},#{ARTICLE_ORIGIN_USER_ID},#{ARTICLE_SECURITY},#{TYPE_ID},#{CREATE_DATE},#{UPDATE_DATE},#{IS_DELETE})
+    </insert>
+
+    <delete id="removeArticleById" parameterType="string">
+        DELETE FROM ARTICLE WHERE ARTICLE_ID = #{articleId}
+    </delete>
+
+    <select id="findArticleById" parameterType="string"  resultType="com.tony.tonna.entity.Article">
+        SELECT A.* FROM ARTICLE A WHERE 1=1
+        <if test="articleId!= '' and articleId!= null">
+            and A.ARTICLE_ID = #{articleId}
+        </if>
+        and A.IS_DELETE = '2'
+    </select>
+</mapper>

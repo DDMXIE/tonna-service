@@ -21,6 +21,7 @@ public class TokenInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(getTokenInterceptor())
 //                .addPathPatterns("/admin/validateTokenSayHello","/user/showUserInfoByToken","/logout");
                 .excludePathPatterns("/login")
+                .excludePathPatterns("/tonna/findAllArticle")
                 .excludePathPatterns("/**/*/*/*.JPEG","/**/*/*/*.jpeg")
                 .excludePathPatterns("/**/*/*/*.JPG","/**/*/*/*.jpg")
                 .excludePathPatterns("/**/*/*/*.PNG","/**/*/*/*.png")

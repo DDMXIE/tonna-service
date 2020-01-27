@@ -6,6 +6,7 @@
 package com.tony.tonna.mapper;
 
 import com.tony.tonna.entity.Article;
+import com.tony.tonna.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -33,4 +34,28 @@ public interface ArticleMapper {
      * @return List
      */
     List<Article> findArticleById(@Param("articleId")String articleId);
+
+    /**
+     * 修改笔记状态
+     * @param articleId
+     * @param articleStatus
+     * @return
+     */
+    int updateArticleStatus(@Param("articleId")String articleId,@Param("articleStatus")String articleStatus);
+
+    /**
+     * 分页查询所有笔记
+     * @param typeId
+     * @param start
+     * @param end
+     * @return
+     */
+    List<Article> findAllArticle(@Param("typeId")String typeId,@Param("start")int start,@Param("end")int end);
+
+    /**
+     * 根据作者id查询用户信息
+     * @param authorId
+     * @return
+     */
+    List<User> findAuthorById(@Param("authorId")String authorId);
 }

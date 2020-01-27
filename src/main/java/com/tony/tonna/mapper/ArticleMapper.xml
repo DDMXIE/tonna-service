@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tony.tonna.mapper.ArticleMapper">
     <insert id="addUpdateArticle" parameterType="com.tony.tonna.entity.Article">
-        INSERT INTO ARTICLE(ARTICLE_ID, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_CONTENT_HTML, ARTICLE_ORIGIN_USER_ID, ARTICLE_SECURITY, TYPE_ID, CREATE_DATE, UPDATE_DATE, IS_DELETE)
-        VALUES (#{ARTICLE_ID},#{ARTICLE_TITLE},#{ARTICLE_CONTENT},#{ARTICLE_CONTENT_HTML},#{ARTICLE_ORIGIN_USER_ID},#{ARTICLE_SECURITY},#{TYPE_ID},#{CREATE_DATE},#{UPDATE_DATE},#{IS_DELETE})
+        INSERT INTO ARTICLE(ARTICLE_ID, ARTICLE_TITLE, ARTICLE_CONTENT, ARTICLE_CONTENT_HTML, ARTICLE_ORIGIN_USER_ID, ARTICLE_SECURITY, TYPE_ID, ARTICLE_STATUS, CREATE_DATE, UPDATE_DATE, IS_DELETE)
+        VALUES (#{ARTICLE_ID},#{ARTICLE_TITLE},#{ARTICLE_CONTENT},#{ARTICLE_CONTENT_HTML},#{ARTICLE_ORIGIN_USER_ID},#{ARTICLE_SECURITY},#{TYPE_ID},#{ARTICLE_STATUS},#{CREATE_DATE},#{UPDATE_DATE},#{IS_DELETE})
     </insert>
 
     <delete id="removeArticleById" parameterType="string">
@@ -18,5 +18,27 @@
             and A.ARTICLE_ID = #{articleId}
         </if>
         and A.IS_DELETE = '2'
+    </select>
+
+    <update id="updateArticleStatus"  parameterType="string">
+         update ARTICLE SET ARTICLE_STATUS=#{articleStatus}
+         where ARTICLE_ID=#{articleId}
+    </update>
+
+    <select id="findAllArticle" parameterType="string"  resultType="com.tony.tonna.entity.Article">
+        SELECT A.* FROM ARTICLE A WHERE 1=1
+        <if test="typeId!= '' and typeId!= null">
+            and A.TYPE_ID = #{typeId}
+        </if>
+        and A.ARTICLE_STATUS = '1'
+        and A.IS_DELETE = '2'
+        limit #{start},#{end}
+    </select>
+
+    <select id="findAuthorById" parameterType="string"  resultType="com.tony.tonna.entity.User">
+        SELECT U.* FROM USER U WHERE 1=1
+        <if test="authorId!= '' and authorId!= null">
+            and U.USER_ID = #{authorId}
+        </if>
     </select>
 </mapper>

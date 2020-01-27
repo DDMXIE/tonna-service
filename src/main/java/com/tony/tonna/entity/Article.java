@@ -11,6 +11,7 @@ public class Article {
     private String ARTICLE_ORIGIN_USER_ID;
     private String ARTICLE_SECURITY;
     private String TYPE_ID;
+    private String ARTICLE_STATUS;
     private Date CREATE_DATE;
     private Date UPDATE_DATE;
     private String IS_DELETE;
@@ -69,6 +70,14 @@ public class Article {
 
     public void setTYPE_ID(String TYPE_ID) {
         this.TYPE_ID = TYPE_ID;
+    }
+
+    public String getARTICLE_STATUS() {
+        return ARTICLE_STATUS;
+    }
+
+    public void setARTICLE_STATUS(String ARTICLE_STATUS) {
+        this.ARTICLE_STATUS = ARTICLE_STATUS;
     }
 
     public Date getCREATE_DATE() {

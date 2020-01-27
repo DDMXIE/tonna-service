@@ -46,16 +46,18 @@ public class ArticleController {
         if(flag.equals("add")){
             article.setARTICLE_ID(UUID.randomUUID().toString());
             article.setCREATE_DATE(new Date());
-            article.setIS_DELETE("2");
+            article.setIS_DELETE("2"); //2为未删除 1为删除
+            article.setARTICLE_STATUS("2"); //2为草稿 1为发表
         }else{
             article.setARTICLE_ID((String) inputArticle.get("articleId"));
             String time = inputArticle.get("createDate").toString();
             time = time.replace("Z", " UTC");//UTC是本地时间
-            SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
             Date createDate = format.parse(time);
             article.setCREATE_DATE(createDate);
             article.setUPDATE_DATE(new Date());
             article.setIS_DELETE((String) inputArticle.get("isDelete"));
+            article.setARTICLE_STATUS((String) inputArticle.get("articleStatus")); //2为草稿 1为发表
         }
         return Result.success(200,articleService.addUpdateArticle(article,flag));
     }
@@ -72,5 +74,35 @@ public class ArticleController {
         }else{
             return Result.success(200,articleService.findArticleById(articleId));
         }
+    }
+
+    /**
+     * 发布笔记
+     * @param articleId
+     * @return
+     */
+    @GetMapping("/admin/publishedAriticle")
+    public Result publishedAriticle(@RequestParam(value = "articleId", required = false) String articleId){
+        if(articleId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.publishedAriticle(articleId));
+        }
+    }
+
+    /**
+     * 查询所有笔记
+     * @return Result
+     */
+    @GetMapping("/tonna/findAllArticle")
+    public Result findAllArticle(@RequestParam(value = "typeId", required = false) String typeId,
+                                 @RequestParam(value = "start", required = false) int start,
+                                 @RequestParam(value = "end", required = false) int end){
+        if(typeId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findAllArticle(typeId,start,end));
+        }
+
     }
 }

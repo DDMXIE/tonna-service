@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tony.tonna.mapper.TalkMapper">
+
+    <insert id="addOrReplyTalk" parameterType="com.tony.tonna.entity.Talk">
+        INSERT INTO TALK(TALK_ID, ARTICLE_ID, REPLY_ID,REPLY_CONTENT, OWNER_ID, OWNER_NAME, TARGET_ID, TARGET_NAME, CREATE_DATE, IS_DELETE)
+        VALUES (#{TALK_ID},#{ARTICLE_ID},#{REPLY_ID},#{REPLY_CONTENT},#{OWNER_ID},#{OWNER_NAME},#{TARGET_ID},#{TARGET_NAME},#{CREATE_DATE},#{IS_DELETE})
+    </insert>
+
+    <select id="findAllTalk" parameterType="string"  resultType="com.tony.tonna.VO.TalkImgVO">
+        SELECT T.*,USER_IMG FROM TALK T,USER U WHERE 1=1
+        <if test="articleId!= '' and articleId!= null">
+            and T.ARTICLE_ID = #{articleId}
+        </if>
+        AND T.REPLY_ID = '0'
+        AND T.OWNER_ID = U.USER_ID
+        ORDER BY T.CREATE_DATE DESC
+    </select>
+
+    <select id="findTalkByReplyId" parameterType="string"  resultType="com.tony.tonna.VO.TalkImgVO">
+        SELECT T.*,USER_IMG FROM TALK T,USER U WHERE 1=1
+        AND T.REPLY_ID = #{replyId}
+        AND T.OWNER_ID = U.USER_ID
+        ORDER BY T.CREATE_DATE DESC
+    </select>
+
+</mapper>

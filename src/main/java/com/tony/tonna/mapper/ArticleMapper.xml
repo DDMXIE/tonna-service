@@ -32,6 +32,7 @@
         </if>
         and A.ARTICLE_STATUS = '1'
         and A.IS_DELETE = '2'
+        ORDER BY A.CREATE_DATE DESC
         limit #{start},#{end}
     </select>
 

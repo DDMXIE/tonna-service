@@ -22,6 +22,9 @@ public class TokenInterceptorConfig implements WebMvcConfigurer {
 //                .addPathPatterns("/admin/validateTokenSayHello","/user/showUserInfoByToken","/logout");
                 .excludePathPatterns("/login")
                 .excludePathPatterns("/tonna/findAllArticle")
+                .excludePathPatterns("/tonna/findAritcleByIdUser")
+                .excludePathPatterns("/tonna/findAllTalk")
+                .excludePathPatterns("/uploadFile/**")
                 .excludePathPatterns("/**/*/*/*.JPEG","/**/*/*/*.jpeg")
                 .excludePathPatterns("/**/*/*/*.JPG","/**/*/*/*.jpg")
                 .excludePathPatterns("/**/*/*/*.PNG","/**/*/*/*.png")

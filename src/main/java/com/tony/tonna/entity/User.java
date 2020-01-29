@@ -16,6 +16,7 @@ public class User implements UserDetails, Serializable {
     private Boolean USER_ENABLED;
     private Boolean USER_LOCKED;
     private String USER_TEL;
+    private String USER_IMG;
     private List<Role> ROLES; /** 相当于关联Role **/
 //    private String token;
 
@@ -118,5 +119,13 @@ public class User implements UserDetails, Serializable {
 
     public void setUSER_TEL(String USER_TEL) {
         this.USER_TEL = USER_TEL;
+    }
+
+    public String getUSER_IMG() {
+        return USER_IMG;
+    }
+
+    public void setUSER_IMG(String USER_IMG) {
+        this.USER_IMG = USER_IMG;
     }
 }

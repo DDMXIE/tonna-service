@@ -105,4 +105,18 @@ public class ArticleController {
         }
 
     }
+
+    /**
+     * 用户根据id获取笔记信息
+     * @param articleId
+     * @return Result
+     */
+    @GetMapping("/tonna/findAritcleByIdUser")
+    public Result findAritcleByIdUser(@RequestParam(value = "articleId", required = false) String articleId){
+        if(articleId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findAritcleByIdUser(articleId));
+        }
+    }
 }

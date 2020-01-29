@@ -24,7 +24,7 @@ public class TokenInterceptor implements HandlerInterceptor {
                              HttpServletResponse response,
                              Object handler) throws IOException {
         System.out.println("TokenInterceptor>>>preHandle");
-
+        System.out.println(request.getRequestURL());
         User user = new User();
         String token = null;
         try{

@@ -93,4 +93,26 @@ public class ArticleService {
         }
         return newlist;
     }
+
+    /**
+     * 用户根据id获取笔记信息
+     * @param articleId
+     * @return
+     */
+    public List<ArticleFindAllVO> findAritcleByIdUser(String articleId){
+        List<Article> list =  articleMapper.findArticleById(articleId);
+        List<ArticleFindAllVO> newlist = new ArrayList<>();
+        for(Article article : list){
+            ArticleFindAllVO articleFindAllVO = new ArticleFindAllVO();
+            articleFindAllVO.setARTICLE(article);
+            articleFindAllVO.setIMG_URL(utilService.getImgStr(article.getARTICLE_CONTENT_HTML()));
+            articleFindAllVO.setARTICLE_INTRODUCE(utilService.removeHtml(article.getARTICLE_CONTENT_HTML()));
+            List userlist = articleMapper.findAuthorById(article.getARTICLE_ORIGIN_USER_ID());
+            User user = (User) userlist.get(0);
+            articleFindAllVO.setARTICLE_AUTHOR(user.getUSER_NAME());
+            articleFindAllVO.setUSER_IMG(user.getUSER_IMG());
+            newlist.add(articleFindAllVO);
+        }
+        return newlist;
+    }
 }

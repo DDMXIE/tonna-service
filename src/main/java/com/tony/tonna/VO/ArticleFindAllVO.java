@@ -10,6 +10,7 @@ public class ArticleFindAllVO {
    private Set IMG_URL;
    private String ARTICLE_INTRODUCE;
    private String ARTICLE_AUTHOR;
+   private String USER_IMG;
 
     public Article getARTICLE() {
         return ARTICLE;
@@ -41,5 +42,13 @@ public class ArticleFindAllVO {
 
     public void setARTICLE_AUTHOR(String ARTICLE_AUTHOR) {
         this.ARTICLE_AUTHOR = ARTICLE_AUTHOR;
+    }
+
+    public String getUSER_IMG() {
+        return USER_IMG;
+    }
+
+    public void setUSER_IMG(String USER_IMG) {
+        this.USER_IMG = USER_IMG;
     }
 }

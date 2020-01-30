@@ -35,4 +35,11 @@ public interface TalkMapper {
      * @return
      */
     List<TalkImgVO> findTalkByReplyId(@Param("replyId")String replyId);
+
+    /**
+     * 根据文章id查询评论数（未删除的）
+     * @param articleId
+     * @return
+     */
+    int countTalkByArticleId(@Param("articleId")String articleId);
 }

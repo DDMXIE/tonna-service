@@ -5,11 +5,14 @@
  */
 package com.tony.tonna.mapper;
 
+import com.tony.tonna.VO.ArticleCollectVO;
+import com.tony.tonna.VO.ArticleLikeVO;
 import com.tony.tonna.entity.Article;
 import com.tony.tonna.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -58,4 +61,69 @@ public interface ArticleMapper {
      * @return
      */
     List<User> findAuthorById(@Param("authorId")String authorId);
+
+    /**
+     * 根据用户id和文章id查询用户是否点赞此篇文章
+     * @param userId
+     * @param articleId
+     * @return ArticleLikeVO
+     */
+    List<ArticleLikeVO> findUserLikeByArticleId(@Param("userId")String userId,@Param("articleId")String articleId);
+
+    /**
+     * 用户增加点赞
+     * @param articleLikeId
+     * @param userId
+     * @param articleId
+     * @param createDate
+     * @param isDelete
+     * @return int
+     */
+    int likeArticleByUser(@Param("articleLikeId")String articleLikeId,@Param("userId")String userId,
+                          @Param("articleId")String articleId,@Param("createDate") Date createDate,
+                          @Param("isDelete")String isDelete);
+
+    /**
+     * 用户根据用户id和文章id删除赞（软删除）
+     * @param userId
+     * @param articleId
+     * @return int
+     */
+    int deleteLike(@Param("userId")String userId,@Param("articleId")String articleId);
+
+    /**
+     * 根据文章id查询点赞数（未删除的）
+     * @param articleId
+     * @return int
+     */
+    int countLikeByArticleId(@Param("articleId")String articleId);
+
+    /**
+     * 根据用户id和文章id查询用户是否收藏此篇文章
+     * @param userId
+     * @param articleId
+     * @return List
+     */
+    List<ArticleCollectVO> findUserCollectByArticleId(@Param("userId")String userId, @Param("articleId")String articleId);
+
+    /**
+     * 用户添加收藏
+     * @param articleCollectId
+     * @param userId
+     * @param articleId
+     * @param createDate
+     * @param isDelete
+     * @return int
+     */
+    int collectArticleByUser(@Param("articleCollectId")String articleCollectId,@Param("userId")String userId,
+                          @Param("articleId")String articleId,@Param("createDate") Date createDate,
+                          @Param("isDelete")String isDelete);
+
+    /**
+     * 用户根据用户id和文章id取消收藏（软删除）
+     * @param userId
+     * @param articleId
+     * @return int
+     */
+    int deleteCollect(@Param("userId")String userId,@Param("articleId")String articleId);
 }

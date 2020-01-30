@@ -42,4 +42,48 @@
             and U.USER_ID = #{authorId}
         </if>
     </select>
+
+    <insert id="likeArticleByUser">
+        INSERT INTO ARTICLE_LIKE(ARTICLE_LIKE_ID, USER_ID, ARTICLE_ID, CREATE_DATE, IS_DELETE)
+        VALUES (#{articleLikeId},#{userId},#{articleId},#{createDate},#{isDelete})
+    </insert>
+
+    <select id="findUserLikeByArticleId" parameterType="string"  resultType="com.tony.tonna.VO.ArticleLikeVO">
+        SELECT AL.*,U.USER_NAME FROM ARTICLE_LIKE AL,USER U WHERE 1=1
+        AND AL.ARTICLE_ID = #{articleId}
+        AND U.USER_ID = #{userId}
+        AND AL.USER_ID = U.USER_ID
+        AND AL.IS_DELETE = '2'
+    </select>
+
+    <update id="deleteLike"  parameterType="string">
+         update ARTICLE_LIKE SET IS_DELETE = '1'
+         where ARTICLE_ID=#{articleId}
+         AND USER_ID=#{userId}
+    </update>
+
+    <select id="countLikeByArticleId" parameterType="string"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ARTICLE_LIKE AL WHERE 1=1
+        AND AL.ARTICLE_ID = #{articleId}
+        AND AL.IS_DELETE = '2'
+    </select>
+
+    <select id="findUserCollectByArticleId" parameterType="string"  resultType="com.tony.tonna.VO.ArticleCollectVO">
+        SELECT AC.*,U.USER_NAME FROM ARTICLE_COLLECT AC,USER U WHERE 1=1
+        AND AC.ARTICLE_ID = #{articleId}
+        AND U.USER_ID = #{userId}
+        AND AC.USER_ID = U.USER_ID
+        AND AC.IS_DELETE = '2'
+    </select>
+
+    <insert id="collectArticleByUser">
+        INSERT INTO ARTICLE_COLLECT(ARTICLE_COLLECT_ID, USER_ID, ARTICLE_ID, CREATE_DATE, IS_DELETE)
+        VALUES (#{articleCollectId},#{userId},#{articleId},#{createDate},#{isDelete})
+    </insert>
+
+    <update id="deleteCollect"  parameterType="string">
+         update ARTICLE_COLLECT SET IS_DELETE = '1'
+         where ARTICLE_ID=#{articleId}
+         AND USER_ID=#{userId}
+    </update>
 </mapper>

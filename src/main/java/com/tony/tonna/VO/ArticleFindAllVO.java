@@ -11,6 +11,8 @@ public class ArticleFindAllVO {
    private String ARTICLE_INTRODUCE;
    private String ARTICLE_AUTHOR;
    private String USER_IMG;
+   private int TALK_NUM;
+   private int LIKE_NUM;
 
     public Article getARTICLE() {
         return ARTICLE;
@@ -50,5 +52,21 @@ public class ArticleFindAllVO {
 
     public void setUSER_IMG(String USER_IMG) {
         this.USER_IMG = USER_IMG;
+    }
+
+    public int getTALK_NUM() {
+        return TALK_NUM;
+    }
+
+    public void setTALK_NUM(int TALK_NUM) {
+        this.TALK_NUM = TALK_NUM;
+    }
+
+    public int getLIKE_NUM() {
+        return LIKE_NUM;
+    }
+
+    public void setLIKE_NUM(int LIKE_NUM) {
+        this.LIKE_NUM = LIKE_NUM;
     }
 }

@@ -26,4 +26,9 @@
         ORDER BY T.CREATE_DATE DESC
     </select>
 
+    <select id="countTalkByArticleId" parameterType="string"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM TALK T WHERE 1=1
+        AND T.ARTICLE_ID = #{articleId}
+        AND T.IS_DELETE = '2'
+    </select>
 </mapper>

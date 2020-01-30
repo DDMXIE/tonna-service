@@ -119,4 +119,56 @@ public class ArticleController {
             return Result.success(200,articleService.findAritcleByIdUser(articleId));
         }
     }
+
+    /**
+     * 用户新增或删除赞
+     * @param inputData
+     * @return Result
+     */
+    @PostMapping("/admin/likeArticleByUser")
+    public Result likeArticleByUser(@RequestBody Map inputData){
+        return Result.success(200,articleService.likeArticleByUser(inputData));
+    }
+
+    /**
+     * 用户查看此篇文章点赞情况
+     * @param userId
+     * @param articleId
+     * @return
+     */
+    @GetMapping("/tonna/findUserLikeByAticleId")
+    public Result findUserLikeByAticleId(@RequestParam(value = "userId", required = false) String userId,
+                                         @RequestParam(value = "articleId", required = false) String articleId){
+        if(userId == null || articleId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findUserLikeByArticleId(userId,articleId));
+        }
+    }
+
+    /**
+     * 用户新增或取消收藏
+     * @param inputData
+     * @return Result
+     */
+    @PostMapping("/admin/collectArticleByUser")
+    public Result collectArticleByUser(@RequestBody Map inputData){
+        return Result.success(200,articleService.collectArticleByUser(inputData));
+    }
+
+    /**
+     * 用户查看此篇文章收藏情况
+     * @param userId
+     * @param articleId
+     * @return
+     */
+    @GetMapping("/tonna/findUserCollectByAticleId")
+    public Result findUserCollectByAticleId(@RequestParam(value = "userId", required = false) String userId,
+                                         @RequestParam(value = "articleId", required = false) String articleId){
+        if(userId == null || articleId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findUserCollectByAticleId(userId,articleId));
+        }
+    }
 }

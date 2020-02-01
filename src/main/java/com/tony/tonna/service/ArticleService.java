@@ -5,13 +5,12 @@
  */
 package com.tony.tonna.service;
 
-import com.tony.tonna.VO.ArticleCollectVO;
-import com.tony.tonna.VO.ArticleFindAllVO;
-import com.tony.tonna.VO.ArticleLikeVO;
+import com.tony.tonna.VO.*;
 import com.tony.tonna.entity.Article;
 import com.tony.tonna.entity.User;
 import com.tony.tonna.mapper.ArticleMapper;
 import com.tony.tonna.mapper.TalkMapper;
+import com.tony.tonna.mapper.UserMapper;
 import com.tony.tonna.mapper.UtilMapper;
 import com.tony.tonna.util.Result;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,13 @@ public class ArticleService {
     private UtilService utilService;
 
     @Resource
+    private TalkService talkService;
+
+    @Resource
     private TalkMapper talkMapper;
+
+    @Resource
+    private UserMapper userMapper;
 
     /**
      * 新增修改笔记
@@ -145,6 +150,7 @@ public class ArticleService {
                 Date createDate = new Date();
                 String isDelete = "2";
                 num =  articleMapper.likeArticleByUser(articleLikeId,userId,articleId,createDate,isDelete);
+                articleMapper.addActivityByUser(UUID.randomUUID().toString(),userId,"2",articleId,null,new Date(),articleLikeId);
                 outputdata.put("tip","您已点赞成功!");
             }else{
                 outputdata.put("tip","点赞失败！你已点过赞");
@@ -184,6 +190,7 @@ public class ArticleService {
                 Date createDate = new Date();
                 String isDelete = "2";
                 num =  articleMapper.collectArticleByUser(articleCollectId,userId,articleId,createDate,isDelete);
+//                articleMapper.addActivityByUser(UUID.randomUUID().toString(),userId,"3",articleId,null,new Date(),articleCollectId);
                 outputdata.put("tip","您已收藏成功!");
             }else{
                 outputdata.put("tip","收藏失败！你已收藏");
@@ -197,13 +204,66 @@ public class ArticleService {
     }
 
     /**
-     * 用户查看此篇文章点赞情况
+     * 用户查看此篇文章收藏情况
      * @param userId
      * @param articleId
      * @return List
      */
     public List<ArticleCollectVO> findUserCollectByAticleId(String userId,String articleId){
         return articleMapper.findUserCollectByArticleId(userId,articleId);
+    }
+
+    /**
+     * 用户根据用户id查询动态
+     * @param userId
+     * @param start
+     * @param end
+     * @return
+     */
+    public List findUserActivityByPage(String userId,int start,int end){
+        List userActivityList = new ArrayList();
+        List<ActivityVO> activityList = articleMapper.findUserActivityByPage(userId,start,end);
+        for (ActivityVO activity:activityList) {
+            Map userActivity = new HashMap();
+            userActivity.put("userInfo",userMapper.findUserInfoByUserId(activity.getUSER_ID()));
+            userActivity.put("activityType",activity.getACTIVITY_STATUS());
+            switch (activity.getACTIVITY_STATUS()){
+                case "1":
+                    List<TalkImgVO> talkData = talkMapper.findTalkByTalkId(activity.getBUSINESS_ID());
+                    if(talkData.size()!=0){
+                        userActivity.put("talkData",talkData);
+                        userActivity.put("talkArticleData",this.findAritcleByIdUser(talkData.get(0).getARTICLE_ID()));
+                    }else{
+                        userActivity.put("talkData",null);
+                    }
+                    userActivityList.add(userActivity);
+                    break;
+
+                case "2":
+                    List<ArticleLikeVO> likeData = articleMapper.findLikeByLikeId(activity.getBUSINESS_ID());
+                    if(likeData.size()!=0){
+                        userActivity.put("likeData",likeData);
+                        userActivity.put("likeAriticleData",this.findAritcleByIdUser(likeData.get(0).getARTICLE_ID()));
+                    }else{
+                        userActivity.put("likeData",null);
+                    }
+                    userActivityList.add(userActivity);
+                    break;
+
+                case "3":
+                    List<AttentionVO> attentionData = userMapper.findAttentionByAttentionId(activity.getBUSINESS_ID());
+                    if(attentionData.size()!=0){
+                        userActivity.put("attentionData",attentionData);
+                        userActivity.put("attentionUserData",userMapper.findUserInfoByUserId(attentionData.get(0).getTARGET_ID()));
+                    }else{
+                        userActivity.put("attentionData",null);
+                    }
+                    userActivityList.add(userActivity);
+                    break;
+            }
+
+        }
+        return userActivityList;
     }
 
 

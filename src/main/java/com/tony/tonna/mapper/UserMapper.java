@@ -1,10 +1,12 @@
 package com.tony.tonna.mapper;
 
+import com.tony.tonna.VO.AttentionVO;
 import com.tony.tonna.entity.Role;
 import com.tony.tonna.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -32,4 +34,47 @@ public interface UserMapper {
 
     //通过uid删除一条数据
     int deleteUserTokenByUid(String uid);
+
+    /**
+     * 用户id获取用户基础信息
+     * @param userId
+     * @return
+     */
+    List<User> findUserInfoByUserId(@Param("userId")String userId);
+
+    /**
+     * 用户通过id和目标id查看关注情况
+     * @param ownerId
+     * @param targetId
+     * @return
+     */
+    List<AttentionVO> findUserAttentionById(@Param("ownerId")String ownerId, @Param("targetId")String targetId);
+
+    /**
+     * 用户新增关注
+     * @param attentionId
+     * @param ownerId
+     * @param targetId
+     * @param createDate
+     * @param isDelete
+     * @return
+     */
+    int addAttentionByUser(@Param("attentionId")String attentionId,@Param("ownerId")String ownerId,
+                             @Param("targetId")String targetId,@Param("createDate") Date createDate,
+                             @Param("isDelete")String isDelete);
+
+    /**
+     * 用户根据id和目标id取消关注
+     * @param ownerId
+     * @param targetId
+     * @return
+     */
+    int deleteAttention(@Param("ownerId")String ownerId,@Param("targetId")String targetId);
+
+    /**
+     * 根据关注id获取关注信息
+     * @param attentionId
+     * @return
+     */
+    List<AttentionVO> findAttentionByAttentionId(@Param("attentionId")String attentionId);
 }

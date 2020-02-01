@@ -2,14 +2,12 @@ package com.tony.tonna.control;
 
 import com.tony.tonna.entity.User;
 import com.tony.tonna.service.UserSignService;
+import com.tony.tonna.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class UserSignController {
@@ -32,5 +30,31 @@ public class UserSignController {
         String userRoleId = UUID.randomUUID().toString();
         userSignService.saveUserRole(userRoleId,uid,rid);
         return userSignService.saveSignUser(user);
+    }
+
+    /**
+     * 用户新增或取消关注
+     * @param inputData
+     * @return Result
+     */
+    @PostMapping("/admin/addAttentionByUser")
+    public Result addAttentionByUser(@RequestBody Map inputData){
+        return Result.success(200,userSignService.addAttentionByUser(inputData));
+    }
+
+    /**
+     * 用户查看关注情况
+     * @param ownerId
+     * @param targetId
+     * @return
+     */
+    @GetMapping("/tonna/findUserAttentionById")
+    public Result findUserAttentionById(@RequestParam(value = "ownerId", required = false) String ownerId,
+                                            @RequestParam(value = "targetId", required = false) String targetId){
+        if(ownerId == null || targetId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,userSignService.findUserAttentionById(ownerId,targetId));
+        }
     }
 }

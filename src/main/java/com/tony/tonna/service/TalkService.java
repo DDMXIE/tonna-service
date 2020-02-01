@@ -7,14 +7,12 @@ package com.tony.tonna.service;
 
 import com.tony.tonna.VO.TalkImgVO;
 import com.tony.tonna.entity.Talk;
+import com.tony.tonna.mapper.ArticleMapper;
 import com.tony.tonna.mapper.TalkMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TalkService {
@@ -22,12 +20,16 @@ public class TalkService {
     @Resource
     private TalkMapper talkMapper;
 
+    @Resource
+    private ArticleMapper articleMapper;
+
     /**
      * 新增或回复评论
      * @param talk
      * @return
      */
     public int addOrReplyTalk(Talk talk){
+        articleMapper.addActivityByUser(UUID.randomUUID().toString(),talk.getOWNER_ID(),"1",talk.getARTICLE_ID(),null,new Date(),talk.getTALK_ID());
         return talkMapper.addOrReplyTalk(talk);
     }
 

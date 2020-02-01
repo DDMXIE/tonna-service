@@ -5,6 +5,7 @@
  */
 package com.tony.tonna.mapper;
 
+import com.tony.tonna.VO.ActivityVO;
 import com.tony.tonna.VO.ArticleCollectVO;
 import com.tony.tonna.VO.ArticleLikeVO;
 import com.tony.tonna.entity.Article;
@@ -126,4 +127,36 @@ public interface ArticleMapper {
      * @return int
      */
     int deleteCollect(@Param("userId")String userId,@Param("articleId")String articleId);
+
+    /**
+     * 用户增加动态信息
+     * @param activityId
+     * @param userId
+     * @param activityStatus
+     * @param articleId
+     * @param authorId
+     * @param createDate
+     * @param businessId
+     * @return
+     */
+    int addActivityByUser(@Param("activityId")String activityId,@Param("userId")String userId,
+                          @Param("activityStatus")String activityStatus,@Param("articleId") String articleId,
+                          @Param("authorId")String authorId,@Param("createDate") Date createDate,
+                          @Param("businessId")String businessId);
+
+    /**
+     * 分页查询用户状态
+     * @param userId
+     * @param start
+     * @param end
+     * @return
+     */
+    List<ActivityVO> findUserActivityByPage(@Param("userId")String userId, @Param("start")int start, @Param("end")int end);
+
+    /**
+     * 根据点赞id获取点赞信息
+     * @param likeId
+     * @return
+     */
+    List<ArticleLikeVO> findLikeByLikeId(@Param("likeId")String likeId);
 }

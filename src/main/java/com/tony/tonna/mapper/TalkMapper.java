@@ -5,6 +5,7 @@
  */
 package com.tony.tonna.mapper;
 
+import com.tony.tonna.VO.ArticleLikeVO;
 import com.tony.tonna.VO.TalkImgVO;
 import com.tony.tonna.entity.Talk;
 import org.apache.ibatis.annotations.Mapper;
@@ -42,4 +43,11 @@ public interface TalkMapper {
      * @return
      */
     int countTalkByArticleId(@Param("articleId")String articleId);
+
+    /**
+     * 根据评论id获取评论信息
+     * @param talkId
+     * @return
+     */
+    List<TalkImgVO> findTalkByTalkId(@Param("talkId")String talkId);
 }

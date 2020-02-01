@@ -33,4 +33,43 @@
     <delete id="deleteUserTokenByUid">
         DELETE FROM USER_TOKEN WHERE U_ID = #{uid}
     </delete>
+
+    <select id="findUserInfoByUserId" resultType="com.tony.tonna.VO.UserInfoVO">
+        select U.USER_ID,U.USER_NAME,U.USER_TEL,U.USER_IMG,U.USER_INTRODUCE from USER U where 1=1
+        AND U.USER_ID=#{userId}
+    </select>
+
+    <select id="findUserAttentionById" parameterType="string"  resultType="com.tony.tonna.VO.AttentionVO">
+        SELECT DISTINCT A.*,
+            (SELECT U.USER_NAME FROM USER U
+                    WHERE U.USER_ID = #{ownerId})AS OWNER_NAME,
+            (SELECT U.USER_NAME FROM USER U
+                    WHERE U.USER_ID = #{targetId})AS TARGET_NAME
+                    FROM ATTENTION A,USER U WHERE 1=1
+        AND A.OWNER_ID = #{ownerId}
+        AND A.TARGET_ID = #{targetId}
+        AND A.IS_DELETE = '2'
+    </select>
+
+    <insert id="addAttentionByUser">
+        INSERT INTO ATTENTION(ATTENTION_ID, OWNER_ID, TARGET_ID, CREATE_DATE, IS_DELETE)
+        VALUES (#{attentionId},#{ownerId},#{targetId},#{createDate},#{isDelete})
+    </insert>
+
+    <update id="deleteAttention"  parameterType="string">
+         update ATTENTION SET IS_DELETE = '1'
+         WHERE OWNER_ID=#{ownerId}
+         AND TARGET_ID=#{targetId}
+    </update>
+
+    <select id="findAttentionByAttentionId" parameterType="string"  resultType="com.tony.tonna.VO.AttentionVO">
+        SELECT DISTINCT A.*,
+            (SELECT U.USER_NAME FROM USER U
+                    WHERE U.USER_ID = A.OWNER_ID)AS OWNER_NAME,
+            (SELECT U.USER_NAME FROM USER U
+                    WHERE U.USER_ID = A.TARGET_ID)AS TARGET_NAME
+                    FROM ATTENTION A,USER U WHERE 1=1
+        AND A.ATTENTION_ID = #{attentionId}
+        AND A.IS_DELETE = '2'
+    </select>
 </mapper>

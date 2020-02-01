@@ -16,6 +16,7 @@
         </if>
         AND T.REPLY_ID = '0'
         AND T.OWNER_ID = U.USER_ID
+        AND T.IS_DELETE = '2'
         ORDER BY T.CREATE_DATE DESC
     </select>
 
@@ -30,5 +31,13 @@
         SELECT COUNT(*) FROM TALK T WHERE 1=1
         AND T.ARTICLE_ID = #{articleId}
         AND T.IS_DELETE = '2'
+    </select>
+
+    <select id="findTalkByTalkId" parameterType="string"  resultType="com.tony.tonna.VO.TalkImgVO">
+        SELECT T.*,USER_IMG FROM TALK T,USER U WHERE 1=1
+        AND T.TALK_ID = #{talkId}
+        AND T.OWNER_ID = U.USER_ID
+        AND T.IS_DELETE = '2'
+        ORDER BY T.CREATE_DATE DESC
     </select>
 </mapper>

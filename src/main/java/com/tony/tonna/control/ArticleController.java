@@ -171,4 +171,18 @@ public class ArticleController {
             return Result.success(200,articleService.findUserCollectByAticleId(userId,articleId));
         }
     }
+
+    /**
+     * 用户根据id查询用户动态
+     * @param userId
+     * @param start
+     * @param end
+     * @return
+     */
+    @GetMapping("/tonna/findUserActivityByPage")
+    public Result findUserActivityByPage(@RequestParam(value = "userId", required = false) String userId,
+                                   @RequestParam(value = "start", required = false) int start,
+                                   @RequestParam(value = "end", required = false) int end){
+        return Result.success(200,articleService.findUserActivityByPage(userId,start,end));
+    }
 }

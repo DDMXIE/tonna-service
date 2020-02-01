@@ -30,7 +30,7 @@
         <if test="typeId!= '' and typeId!= null">
             and A.TYPE_ID = #{typeId}
         </if>
-        and A.ARTICLE_STATUS = '1'
+        and (A.ARTICLE_STATUS='1' OR A.ARTICLE_STATUS='3')
         and A.IS_DELETE = '2'
         ORDER BY A.CREATE_DATE DESC
         limit #{start},#{end}
@@ -86,4 +86,23 @@
          where ARTICLE_ID=#{articleId}
          AND USER_ID=#{userId}
     </update>
+
+    <insert id="addActivityByUser">
+        INSERT INTO ACTIVITY(ACTIVITY_ID, USER_ID, ACTIVITY_STATUS, ARITCLE_ID, AUTHOR_ID, CREATE_DATE, BUSINESS_ID)
+        VALUES (#{activityId},#{userId},#{activityStatus},#{articleId},#{authorId},#{createDate},#{businessId})
+    </insert>
+
+    <select id="findUserActivityByPage" resultType="com.tony.tonna.VO.ActivityVO">
+        SELECT A.* FROM ACTIVITY A WHERE 1=1
+        AND A.USER_ID=#{userId}
+        ORDER BY A.CREATE_DATE DESC
+        limit #{start},#{end}
+    </select>
+
+    <select id="findLikeByLikeId" parameterType="string"  resultType="com.tony.tonna.VO.ArticleLikeVO">
+        SELECT AL.*,U.USER_NAME FROM ARTICLE_LIKE AL,USER U WHERE 1=1
+        AND AL.ARTICLE_LIKE_ID = #{likeId}
+        AND AL.USER_ID = U.USER_ID
+        AND AL.IS_DELETE = '2'
+    </select>
 </mapper>

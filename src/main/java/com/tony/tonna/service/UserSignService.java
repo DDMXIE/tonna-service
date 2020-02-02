@@ -1,6 +1,7 @@
 package com.tony.tonna.service;
 
 import com.tony.tonna.VO.ArticleCollectVO;
+import com.tony.tonna.VO.AttentionLoadVO;
 import com.tony.tonna.VO.AttentionVO;
 import com.tony.tonna.entity.Role;
 import com.tony.tonna.entity.User;
@@ -80,5 +81,32 @@ public class UserSignService {
      */
     public List<AttentionVO> findUserAttentionById(String ownerId,String targetId){
         return userMapper.findUserAttentionById(ownerId,targetId);
+    }
+
+    /**
+     * 加载用户主页的关注信息
+     * @param authorId
+     * @param userId
+     * @param start
+     * @param end
+     * @return
+     */
+    public List findUserAndAuthorAttention(String authorId,String userId,int start,int end){
+        //先找到auhtor所有关注的人
+        List<AttentionVO> authorAttentionList = userMapper.findAttentionByOwnerId(authorId,start,end);
+        List<AttentionLoadVO> attentionLoadList = new ArrayList<>();
+        for (AttentionVO attention:authorAttentionList) {
+            AttentionLoadVO attentionLoadVO = new AttentionLoadVO();
+            attentionLoadVO.setAttentionVO(attention);
+            attentionLoadVO.setUserInfoVO(userMapper.findUserInfoByUserId(attention.getTARGET_ID()).get(0));
+            List myAttention = userMapper.findUserAttentionById(userId,attention.getTARGET_ID());
+            if(myAttention.size()!=0){
+                attentionLoadVO.setIsMyAttention("1");
+            }else{
+                attentionLoadVO.setIsMyAttention("0");
+            }
+            attentionLoadList.add(attentionLoadVO);
+        }
+        return attentionLoadList;
     }
 }

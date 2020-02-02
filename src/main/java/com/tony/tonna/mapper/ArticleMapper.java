@@ -159,4 +159,13 @@ public interface ArticleMapper {
      * @return
      */
     List<ArticleLikeVO> findLikeByLikeId(@Param("likeId")String likeId);
+
+    /**
+     * 根据作者id分页获取所有文章
+     * @param authorId
+     * @param start
+     * @param end
+     * @return
+     */
+    List<Article> findAuthorArticle(@Param("authorId")String authorId,@Param("start")int start,@Param("end")int end);
 }

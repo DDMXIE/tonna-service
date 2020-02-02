@@ -1,6 +1,8 @@
 package com.tony.tonna.mapper;
 
 import com.tony.tonna.VO.AttentionVO;
+import com.tony.tonna.VO.UserInfoVO;
+import com.tony.tonna.entity.Article;
 import com.tony.tonna.entity.Role;
 import com.tony.tonna.entity.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -40,7 +42,7 @@ public interface UserMapper {
      * @param userId
      * @return
      */
-    List<User> findUserInfoByUserId(@Param("userId")String userId);
+    List<UserInfoVO> findUserInfoByUserId(@Param("userId")String userId);
 
     /**
      * 用户通过id和目标id查看关注情况
@@ -77,4 +79,13 @@ public interface UserMapper {
      * @return
      */
     List<AttentionVO> findAttentionByAttentionId(@Param("attentionId")String attentionId);
+
+    /**
+     * 根据用户id查询该用户所有的关注
+     * @param ownerId
+     * @param start
+     * @param end
+     * @return
+     */
+    List<AttentionVO> findAttentionByOwnerId(@Param("ownerId")String ownerId,@Param("start")int start,@Param("end")int end);
 }

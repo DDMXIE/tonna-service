@@ -57,4 +57,24 @@ public class UserSignController {
             return Result.success(200,userSignService.findUserAttentionById(ownerId,targetId));
         }
     }
+
+    /**
+     * 加载用户主页的关注信息
+     * @param authorId
+     * @param userId
+     * @param start
+     * @param end
+     * @return
+     */
+    @GetMapping("/tonna/findUserAndAuthorAttention")
+    public Result findUserAndAuthorAttention(@RequestParam(value = "authorId", required = false) String authorId,
+                                             @RequestParam(value = "userId", required = false) String userId,
+                                             @RequestParam(value = "start", required = false) Integer start,
+                                             @RequestParam(value = "end", required = false) Integer end){
+        if(authorId == null || userId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,userSignService.findUserAndAuthorAttention(authorId,userId,start,end));
+        }
+    }
 }

@@ -72,4 +72,17 @@
         AND A.ATTENTION_ID = #{attentionId}
         AND A.IS_DELETE = '2'
     </select>
+
+    <select id="findAttentionByOwnerId"  resultType="com.tony.tonna.VO.AttentionVO">
+        SELECT DISTINCT A.*,
+            (SELECT U.USER_NAME FROM USER U
+                    WHERE U.USER_ID = A.OWNER_ID)AS OWNER_NAME,
+            (SELECT U.USER_NAME FROM USER U
+                    WHERE U.USER_ID = A.TARGET_ID)AS TARGET_NAME
+                    FROM ATTENTION A,USER U WHERE 1=1
+        AND A.OWNER_ID = #{ownerId}
+        AND A.IS_DELETE = '2'
+        ORDER BY A.CREATE_DATE DESC
+        limit #{start},#{end}
+    </select>
 </mapper>

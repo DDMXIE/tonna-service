@@ -266,5 +266,31 @@ public class ArticleService {
         return userActivityList;
     }
 
+    /**
+     * 加载用户主页文章内容
+     * @param authorId
+     * @param start
+     * @param end
+     * @return
+     */
+    public List findAuthorArticle(String authorId,int start,int end){
+        List<Article> list = articleMapper.findAuthorArticle(authorId,start,end);
+        List<ArticleFindAllVO> newlist = new ArrayList<>();
+        for(Article article : list){
+            ArticleFindAllVO articleFindAllVO = new ArticleFindAllVO();
+            articleFindAllVO.setARTICLE(article);
+            articleFindAllVO.setIMG_URL(utilService.getImgStr(article.getARTICLE_CONTENT_HTML()));
+            articleFindAllVO.setARTICLE_INTRODUCE(utilService.removeHtml(article.getARTICLE_CONTENT_HTML()));
+            List userlist = articleMapper.findAuthorById(article.getARTICLE_ORIGIN_USER_ID());
+            User user = (User) userlist.get(0);
+            articleFindAllVO.setARTICLE_AUTHOR(user.getUSER_NAME());
+            articleFindAllVO.setUSER_IMG(user.getUSER_IMG());
+            articleFindAllVO.setTALK_NUM(talkMapper.countTalkByArticleId(article.getARTICLE_ID()));
+            articleFindAllVO.setLIKE_NUM(articleMapper.countLikeByArticleId(article.getARTICLE_ID()));
+            newlist.add(articleFindAllVO);
+        }
+        return newlist;
+    }
+
 
 }

@@ -28,6 +28,8 @@ public class TokenInterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/tonna/findUserCollectByAticleId")
                 .excludePathPatterns("/tonna/findUserActivityByPage")
                 .excludePathPatterns("/tonna/findUserAttentionById")
+                .excludePathPatterns("/tonna/findUserAndAuthorAttention")
+                .excludePathPatterns("/tonna/findAuthorArticle")
                 .excludePathPatterns("/uploadFile/**")
                 .excludePathPatterns("/**/*/*/*.JPEG","/**/*/*/*.jpeg")
                 .excludePathPatterns("/**/*/*/*.JPG","/**/*/*/*.jpg")

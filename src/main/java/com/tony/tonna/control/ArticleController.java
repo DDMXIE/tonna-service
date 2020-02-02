@@ -185,4 +185,22 @@ public class ArticleController {
                                    @RequestParam(value = "end", required = false) int end){
         return Result.success(200,articleService.findUserActivityByPage(userId,start,end));
     }
+
+    /**
+     * 加载用户主页文章内容
+     * @param authorId
+     * @param start
+     * @param end
+     * @return
+     */
+    @GetMapping("/tonna/findAuthorArticle")
+    public Result findAuthorArticle(@RequestParam(value = "authorId", required = false) String authorId,
+                                    @RequestParam(value = "start", required = false) int start,
+                                    @RequestParam(value = "end", required = false) int end){
+        if(authorId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findAuthorArticle(authorId,start,end));
+        }
+    }
 }

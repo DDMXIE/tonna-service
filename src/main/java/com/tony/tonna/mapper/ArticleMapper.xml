@@ -105,4 +105,13 @@
         AND AL.USER_ID = U.USER_ID
         AND AL.IS_DELETE = '2'
     </select>
+
+    <select id="findAuthorArticle"  resultType="com.tony.tonna.entity.Article">
+        SELECT A.* FROM ARTICLE A WHERE 1=1
+        and A.ARTICLE_ORIGIN_USER_ID = #{authorId}
+        and (A.ARTICLE_STATUS='1' OR A.ARTICLE_STATUS='3')
+        and A.IS_DELETE = '2'
+        ORDER BY A.CREATE_DATE DESC
+        limit #{start},#{end}
+    </select>
 </mapper>

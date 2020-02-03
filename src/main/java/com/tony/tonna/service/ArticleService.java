@@ -37,6 +37,9 @@ public class ArticleService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private UtilMapper utilMapper;
+
     /**
      * 新增修改笔记
      * @param article
@@ -290,6 +293,23 @@ public class ArticleService {
             newlist.add(articleFindAllVO);
         }
         return newlist;
+    }
+
+    /**
+     * 后台-加载文章类型和统计数量
+     * @return List
+     */
+    public List findAriticleTypeNum(){
+        List outputdata = new ArrayList();
+        List<ConstTypeVO> constTypeVOList = utilMapper.findConstType("ARTICLE_TYPE");
+        for (ConstTypeVO constTypeVO:constTypeVOList) {
+            Map map = new HashMap();
+            map.put("typeId",constTypeVO.getTYPE_ID());
+            map.put("typeName",constTypeVO.getTYPE_NAME());
+            map.put("num",articleMapper.findAriticleTypeNum(constTypeVO.getTYPE_ID()));
+            outputdata.add(map);
+        }
+        return outputdata;
     }
 
 

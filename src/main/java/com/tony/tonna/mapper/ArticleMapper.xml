@@ -114,4 +114,10 @@
         ORDER BY A.CREATE_DATE DESC
         limit #{start},#{end}
     </select>
+
+    <select id="findAriticleTypeNum" parameterType="string"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ARTICLE A WHERE 1=1
+        AND A.TYPE_ID = #{typeId}
+        AND A.IS_DELETE = '2'
+    </select>
 </mapper>

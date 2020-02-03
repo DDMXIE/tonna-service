@@ -2,6 +2,7 @@ package com.tony.tonna.mapper;
 
 import com.tony.tonna.VO.AttentionVO;
 import com.tony.tonna.VO.UserInfoVO;
+import com.tony.tonna.VO.UserVO;
 import com.tony.tonna.entity.Article;
 import com.tony.tonna.entity.Role;
 import com.tony.tonna.entity.User;
@@ -88,4 +89,24 @@ public interface UserMapper {
      * @return
      */
     List<AttentionVO> findAttentionByOwnerId(@Param("ownerId")String ownerId,@Param("start")int start,@Param("end")int end);
+
+    /**
+     * 管理员访问用户信息
+     * @return
+     */
+    List<UserVO> findAllUser();
+
+    /**
+     * 根据用户id查询角色id
+     * @param userId
+     * @return
+     */
+    String findRoleIdByUserId(@Param("userId")String userId);
+
+    /**
+     * 根据角色id查询该条角色信息
+     * @param roleId
+     * @return
+     */
+    List<Role> findRoleByRoleId(@Param("roleId")String roleId);
 }

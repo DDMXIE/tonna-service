@@ -85,4 +85,19 @@
         ORDER BY A.CREATE_DATE DESC
         limit #{start},#{end}
     </select>
+
+    <select id="findAllUser" resultType="com.tony.tonna.VO.UserVO">
+        SELECT U.* FROM USER U WHERE 1=1
+        AND U.USER_ENABLED = '1'
+    </select>
+
+    <select id="findRoleIdByUserId" resultType="java.lang.String">
+        SELECT UR.R_ID FROM USER_ROLE UR WHERE 1=1
+        AND UR.U_ID = #{userId}
+    </select>
+
+    <select id="findRoleByRoleId" resultType="com.tony.tonna.entity.Role">
+        SELECT R.* FROM ROLE R WHERE 1=1
+        AND R.ROLE_ID = #{roleId}
+    </select>
 </mapper>

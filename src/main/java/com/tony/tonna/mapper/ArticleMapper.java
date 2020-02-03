@@ -168,4 +168,11 @@ public interface ArticleMapper {
      * @return
      */
     List<Article> findAuthorArticle(@Param("authorId")String authorId,@Param("start")int start,@Param("end")int end);
+
+    /**
+     * 根据文章类型获取该类型文章总数（未删除）
+     * @param typeId
+     * @return
+     */
+    int findAriticleTypeNum(@Param("typeId")String typeId);
 }

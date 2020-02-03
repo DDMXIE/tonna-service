@@ -77,4 +77,16 @@ public class UserSignController {
             return Result.success(200,userSignService.findUserAndAuthorAttention(authorId,userId,start,end));
         }
     }
+
+    /**
+     * 管理员分页获取用户信息
+     * @param start
+     * @param end
+     * @return
+     */
+    @GetMapping("/super/findUserByPage")
+    public Result findUserByPage( @RequestParam(value = "start", required = false) Integer start,
+                                  @RequestParam(value = "end", required = false) Integer end){
+        return Result.success(200,userSignService.findUserByPage(start,end));
+    }
 }

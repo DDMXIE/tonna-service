@@ -3,6 +3,7 @@ package com.tony.tonna.service;
 import com.tony.tonna.VO.ArticleCollectVO;
 import com.tony.tonna.VO.AttentionLoadVO;
 import com.tony.tonna.VO.AttentionVO;
+import com.tony.tonna.VO.UserVO;
 import com.tony.tonna.entity.Role;
 import com.tony.tonna.entity.User;
 import com.tony.tonna.mapper.ArticleMapper;
@@ -108,5 +109,31 @@ public class UserSignService {
             attentionLoadList.add(attentionLoadVO);
         }
         return attentionLoadList;
+    }
+
+    /**
+     * 管理员分页获取用户信息
+     * @param start
+     * @param end
+     * @return
+     */
+    public Map findUserByPage(int start,int end){
+        Map outputData = new HashMap();
+        List<UserVO> userList = userMapper.findAllUser();
+        for (UserVO user:userList
+             ) {
+            List<Role> roleList = userMapper.findRoleByRoleId(userMapper.findRoleIdByUserId(user.getUSER_ID()));
+            user.setROLE_ID(roleList.get(0).getROLE_ID());
+            user.setROLE_NAME(roleList.get(0).getROLE_NAME());
+            user.setROLE_NAME_DCSP(roleList.get(0).getROLE_NAME_DSCP());
+        }
+        int firstIndex = (start - 1) * end;
+        int lastIndex = start * end;
+        if(lastIndex > userList.size()){
+            lastIndex = firstIndex+(lastIndex - userList.size());
+        }
+        outputData.put("total",userList.size());
+        outputData.put("userList",userList.subList(firstIndex,lastIndex));
+        return outputData;
     }
 }

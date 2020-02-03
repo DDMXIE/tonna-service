@@ -203,4 +203,13 @@ public class ArticleController {
             return Result.success(200,articleService.findAuthorArticle(authorId,start,end));
         }
     }
+
+    /**
+     * 后台-加载文章类型和统计数量
+     * @return Result
+     */
+    @GetMapping("/super/findAriticleTypeNum")
+    public Result findAriticleTypeNum(){
+        return Result.success(200,articleService.findAriticleTypeNum());
+    }
 }

@@ -109,4 +109,10 @@ public interface UserMapper {
      * @return
      */
     List<Role> findRoleByRoleId(@Param("roleId")String roleId);
+
+    /**
+     * 后台-获取基础信息-获取系统注册用户个数（未封号）
+     * @return
+     */
+    int countUserNum();
 }

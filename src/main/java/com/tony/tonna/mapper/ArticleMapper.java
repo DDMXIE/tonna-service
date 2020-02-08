@@ -175,4 +175,16 @@ public interface ArticleMapper {
      * @return
      */
     int findAriticleTypeNum(@Param("typeId")String typeId);
+
+    /**
+     * 后台-获取基础信息-获取笔记总数
+     * @return
+     */
+    int countArticleNum();
+
+    /**
+     * 后台-获取基础信息-获取收藏总数
+     * @return
+     */
+    int countCollectNum();
 }

@@ -7,6 +7,7 @@ package com.tony.tonna.service;
 
 import com.tony.tonna.VO.*;
 import com.tony.tonna.entity.Article;
+import com.tony.tonna.entity.Role;
 import com.tony.tonna.entity.User;
 import com.tony.tonna.mapper.ArticleMapper;
 import com.tony.tonna.mapper.TalkMapper;
@@ -310,6 +311,39 @@ public class ArticleService {
             outputdata.add(map);
         }
         return outputdata;
+    }
+
+    /**
+     * 管理员分页获取笔记信息
+     * @param start
+     * @param end
+     * @return
+     */
+    public Map findAllArticleByPage(int start,int end){
+        Map outputData = new HashMap();
+        List<Article> list =  articleMapper.findArticleById("");
+        List<ArticleFindAllVO> newlist = new ArrayList<>();
+        for(Article article : list){
+            ArticleFindAllVO articleFindAllVO = new ArticleFindAllVO();
+            articleFindAllVO.setARTICLE(article);
+            articleFindAllVO.setIMG_URL(utilService.getImgStr(article.getARTICLE_CONTENT_HTML()));
+            articleFindAllVO.setARTICLE_INTRODUCE(utilService.removeHtml(article.getARTICLE_CONTENT_HTML()));
+            List userlist = articleMapper.findAuthorById(article.getARTICLE_ORIGIN_USER_ID());
+            User user = (User) userlist.get(0);
+            articleFindAllVO.setARTICLE_AUTHOR(user.getUSER_NAME());
+            articleFindAllVO.setUSER_IMG(user.getUSER_IMG());
+            articleFindAllVO.setTALK_NUM(talkMapper.countTalkByArticleId(article.getARTICLE_ID()));
+            articleFindAllVO.setLIKE_NUM(articleMapper.countLikeByArticleId(article.getARTICLE_ID()));
+            newlist.add(articleFindAllVO);
+        }
+        int firstIndex = (start - 1) * end;
+        int lastIndex = start * end;
+        if(lastIndex > newlist.size()){
+            lastIndex = firstIndex+(lastIndex - newlist.size());
+        }
+        outputData.put("total",newlist.size());
+        outputData.put("userList",newlist.subList(firstIndex,lastIndex));
+        return outputData;
     }
 
 

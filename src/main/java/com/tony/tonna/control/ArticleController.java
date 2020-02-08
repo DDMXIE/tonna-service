@@ -212,4 +212,16 @@ public class ArticleController {
     public Result findAriticleTypeNum(){
         return Result.success(200,articleService.findAriticleTypeNum());
     }
+
+    /**
+     * 管理员分页获取笔记信息
+     * @param start
+     * @param end
+     * @return
+     */
+    @GetMapping("/super/findAllArticleByPage")
+    public Result findAllArticleByPage( @RequestParam(value = "start", required = false) Integer start,
+                                  @RequestParam(value = "end", required = false) Integer end){
+        return Result.success(200,articleService.findAllArticleByPage(start,end));
+    }
 }

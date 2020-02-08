@@ -50,4 +50,10 @@ public interface TalkMapper {
      * @return
      */
     List<TalkImgVO> findTalkByTalkId(@Param("talkId")String talkId);
+
+    /**
+     *后台-获取基础信息-获取评论总量
+     * @return
+     */
+    int countTalkNum();
 }

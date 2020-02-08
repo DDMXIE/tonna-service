@@ -100,4 +100,9 @@
         SELECT R.* FROM ROLE R WHERE 1=1
         AND R.ROLE_ID = #{roleId}
     </select>
+
+    <select id="countUserNum" parameterType="string"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM USER U WHERE 1=1
+        AND U.USER_LOCKED = 'true'
+    </select>
 </mapper>

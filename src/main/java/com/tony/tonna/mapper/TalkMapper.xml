@@ -40,4 +40,9 @@
         AND T.IS_DELETE = '2'
         ORDER BY T.CREATE_DATE DESC
     </select>
+
+    <select id="countTalkNum" parameterType="string"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM TALK T WHERE 1=1
+        AND T.IS_DELETE = '2'
+    </select>
 </mapper>

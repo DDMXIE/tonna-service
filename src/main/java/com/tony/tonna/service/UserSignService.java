@@ -7,7 +7,10 @@ import com.tony.tonna.VO.UserVO;
 import com.tony.tonna.entity.Role;
 import com.tony.tonna.entity.User;
 import com.tony.tonna.mapper.ArticleMapper;
+import com.tony.tonna.mapper.TalkMapper;
 import com.tony.tonna.mapper.UserMapper;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,9 @@ public class UserSignService {
 
     @Resource
     private ArticleMapper articleMapper;
+
+    @Resource
+    private TalkMapper talkMapper;
 
     public int saveSignUser(User user){
         return userMapper.saveSignUser(user);
@@ -135,5 +141,18 @@ public class UserSignService {
         outputData.put("total",userList.size());
         outputData.put("userList",userList.subList(firstIndex,lastIndex));
         return outputData;
+    }
+
+    /**
+     * 管理员获取系统化基础信息
+     * @return
+     */
+    public Map findSystemInfo(){
+        Map outputdata = new HashMap();
+        outputdata.put("userNum",userMapper.countUserNum());
+        outputdata.put("articleNum",articleMapper.countArticleNum());
+        outputdata.put("collectNum",articleMapper.countCollectNum());
+        outputdata.put("talkNum",talkMapper.countTalkNum());
+        return outputdata;
     }
 }

@@ -89,4 +89,13 @@ public class UserSignController {
                                   @RequestParam(value = "end", required = false) Integer end){
         return Result.success(200,userSignService.findUserByPage(start,end));
     }
+
+    /**
+     * 管理员获取系统化基础信息
+     * @return
+     */
+    @GetMapping("/super/findSystemInfo")
+    public Result findSystemInfo(){
+        return Result.success(200,userSignService.findSystemInfo());
+    }
 }

@@ -120,4 +120,14 @@
         AND A.TYPE_ID = #{typeId}
         AND A.IS_DELETE = '2'
     </select>
+
+    <select id="countArticleNum" parameterType="string"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ARTICLE A WHERE 1=1
+        AND A.IS_DELETE = '2'
+    </select>
+
+    <select id="countCollectNum" parameterType="string"  resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ARTICLE_COLLECT AC WHERE 1=1
+        AND AC.IS_DELETE = '2'
+    </select>
 </mapper>

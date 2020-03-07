@@ -36,6 +36,14 @@
         limit #{start},#{end}
     </select>
 
+    <select id="findArticleByName" parameterType="string"  resultType="com.tony.tonna.entity.Article">
+        SELECT A.* FROM ARTICLE A WHERE 1=1
+        and A.ARTICLE_TITLE LIKE concat('%',#{articleName},'%')
+        and (A.ARTICLE_STATUS='1' OR A.ARTICLE_STATUS='3')
+        and A.IS_DELETE = '2'
+        ORDER BY A.CREATE_DATE DESC
+    </select>
+
     <select id="findAuthorById" parameterType="string"  resultType="com.tony.tonna.entity.User">
         SELECT U.* FROM USER U WHERE 1=1
         <if test="authorId!= '' and authorId!= null">

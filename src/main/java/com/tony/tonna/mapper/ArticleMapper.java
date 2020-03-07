@@ -57,6 +57,13 @@ public interface ArticleMapper {
     List<Article> findAllArticle(@Param("typeId")String typeId,@Param("start")int start,@Param("end")int end);
 
     /**
+     * 模糊查询笔记信息
+     * @param articleName
+     * @return
+     */
+    List<Article> findArticleByName(@Param("articleName")String articleName);
+
+    /**
      * 根据作者id查询用户信息
      * @param authorId
      * @return

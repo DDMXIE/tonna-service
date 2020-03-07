@@ -107,6 +107,20 @@ public class ArticleController {
     }
 
     /**
+     * 模糊查询笔记信息
+     * @return Result
+     */
+    @GetMapping("/tonna/findArticleByName")
+    public Result findArticleByName(@RequestParam(value = "articleName", required = false) String articleName){
+        if(articleName == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findArticleByName(articleName));
+        }
+
+    }
+
+    /**
      * 用户根据id获取笔记信息
      * @param articleId
      * @return Result

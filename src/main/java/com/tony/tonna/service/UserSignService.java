@@ -118,6 +118,40 @@ public class UserSignService {
     }
 
     /**
+     * 用户通过id获取自身信息
+     * @param userId
+     * @return
+     */
+    public List findUserInfoById(String userId){
+        List userInfoList = userMapper.findUserInfoByUserId(userId);
+        return userInfoList;
+    }
+
+    /**
+     * 用户保存更新用户信息
+     * @param userInfo
+     * @return
+     */
+    public int saveUserInfoById(Map userInfo){
+        String userId = userInfo.get("userId").toString();
+        String username = userInfo.get("username").toString();
+        String userTel = userInfo.get("userTel").toString();
+        String userIntroduce = userInfo.get("userIntroduce").toString();
+        return userMapper.saveUserInfoById(userId,username,userTel,userIntroduce);
+    }
+
+    /**
+     * 用户头像修改
+     * @param userInfo
+     * @return
+     */
+    public int updateUserAvatarById(Map userInfo){
+        String userId = userInfo.get("userId").toString();
+        String userImg = userInfo.get("userImg").toString();
+        return userMapper.updateUserAvatarById(userId,userImg);
+    }
+
+    /**
      * 管理员分页获取用户信息
      * @param start
      * @param end

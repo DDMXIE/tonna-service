@@ -114,6 +114,29 @@ public class ArticleService {
     }
 
     /**
+     * 模糊查询笔记信息
+     * @return
+     */
+    public List<ArticleFindAllVO> findArticleByName(String articleName){
+//        List<Article> list = articleMapper.findArticleById("");
+        List<Article> list = articleMapper.findArticleByName(articleName);
+        List<ArticleFindAllVO> newlist = new ArrayList<>();
+        for(Article article : list){
+            ArticleFindAllVO articleFindAllVO = new ArticleFindAllVO();
+            articleFindAllVO.setARTICLE(article);
+            articleFindAllVO.setIMG_URL(utilService.getImgStr(article.getARTICLE_CONTENT_HTML()));
+            articleFindAllVO.setARTICLE_INTRODUCE(utilService.removeHtml(article.getARTICLE_CONTENT_HTML()));
+            List userlist = articleMapper.findAuthorById(article.getARTICLE_ORIGIN_USER_ID());
+            User user = (User) userlist.get(0);
+            articleFindAllVO.setARTICLE_AUTHOR(user.getUSER_NAME());
+            articleFindAllVO.setTALK_NUM(talkMapper.countTalkByArticleId(article.getARTICLE_ID()));
+            articleFindAllVO.setLIKE_NUM(articleMapper.countLikeByArticleId(article.getARTICLE_ID()));
+            newlist.add(articleFindAllVO);
+        }
+        return newlist;
+    }
+
+    /**
      * 用户根据id获取笔记信息
      * @param articleId
      * @return

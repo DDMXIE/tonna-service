@@ -46,6 +46,20 @@ public interface UserMapper {
     List<UserInfoVO> findUserInfoByUserId(@Param("userId")String userId);
 
     /**
+     * 用户保存更新用户信息
+     * @param userId
+     * @return
+     */
+    int saveUserInfoById(@Param("userId")String userId,@Param("username")String username,@Param("userTel")String userTel,@Param("userIntroduce")String userIntroduce);
+
+    /**
+     * 用户保存更新用户信息
+     * @param userId
+     * @return
+     */
+    int updateUserAvatarById(@Param("userId")String userId,@Param("userImg")String userImg);
+
+    /**
      * 用户通过id和目标id查看关注情况
      * @param ownerId
      * @param targetId

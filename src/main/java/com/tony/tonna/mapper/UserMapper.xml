@@ -11,7 +11,7 @@
     </select>
 
     <insert id="saveSignUser" parameterType="com.tony.tonna.entity.User">
-        INSERT INTO USER(USER_ID,USER_NAME,USER_PASSWORD,USER_ENABLED,USER_LOCKED) VALUES (#{USER_ID},#{USER_NAME},#{USER_PASSWORD},#{USER_ENABLED},#{USER_LOCKED})
+        INSERT INTO USER(USER_ID,USER_NAME,USER_PASSWORD,USER_ENABLED,USER_LOCKED,USER_INTRODUCE,USER_IMG,USER_TEL) VALUES (#{USER_ID},#{USER_NAME},#{USER_PASSWORD},#{USER_ENABLED},#{USER_LOCKED},#{USER_INTRODUCE},#{USER_IMG},#{USER_TEL})
     </insert>
 
     <insert id="saveUserRole">
@@ -38,6 +38,16 @@
         select U.USER_ID,U.USER_NAME,U.USER_TEL,U.USER_IMG,U.USER_INTRODUCE from USER U where 1=1
         AND U.USER_ID=#{userId}
     </select>
+
+    <update id="saveUserInfoById"  parameterType="string">
+         update USER SET USER_NAME=#{username},USER_TEL=#{userTel},USER_INTRODUCE=#{userIntroduce}
+         WHERE USER_ID=#{userId}
+    </update>
+
+    <update id="updateUserAvatarById"  parameterType="string">
+         update USER SET USER_IMG=#{userImg}
+         WHERE USER_ID=#{userId}
+    </update>
 
     <select id="findUserAttentionById" parameterType="string"  resultType="com.tony.tonna.VO.AttentionVO">
         SELECT DISTINCT A.*,

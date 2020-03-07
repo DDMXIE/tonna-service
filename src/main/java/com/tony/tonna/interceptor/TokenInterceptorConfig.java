@@ -21,6 +21,7 @@ public class TokenInterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(getTokenInterceptor())
 //                .addPathPatterns("/admin/validateTokenSayHello","/user/showUserInfoByToken","/logout");
                 .excludePathPatterns("/login")
+                .excludePathPatterns("/tonna/saveSignUser")
                 .excludePathPatterns("/tonna/findAllArticle")
                 .excludePathPatterns("/tonna/findAritcleByIdUser")
                 .excludePathPatterns("/tonna/findAllTalk")
@@ -30,6 +31,7 @@ public class TokenInterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/tonna/findUserAttentionById")
                 .excludePathPatterns("/tonna/findUserAndAuthorAttention")
                 .excludePathPatterns("/tonna/findAuthorArticle")
+                .excludePathPatterns("/tonna/findArticleByName")
                 .excludePathPatterns("/uploadFile/**")
                 .excludePathPatterns("/**/*/*/*.JPEG","/**/*/*/*.jpeg")
                 .excludePathPatterns("/**/*/*/*.JPG","/**/*/*/*.jpg")

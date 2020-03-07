@@ -14,7 +14,7 @@ public class UserSignController {
     @Autowired
     private UserSignService userSignService;
 
-    @PostMapping(value = "/super/saveSignUser")
+    @PostMapping("/tonna/saveSignUser")
     public int saveSignUser(@RequestBody Map userInfoList){
         User user = new User();
         String uid = UUID.randomUUID().toString();
@@ -26,7 +26,10 @@ public class UserSignController {
         user.setUSER_PASSWORD(encoderPassword);
         user.setUSER_ENABLED(true);
         user.setUSER_LOCKED(false);
-        String rid = "56778fvk-rg9f-4dd6-9f03-b1235e883321"; //这是权限为user（用户）的ROLE id
+        user.setUSER_IMG("");
+        user.setUSER_INTRODUCE("");
+        user.setUSER_TEL("");
+        String rid = "2565bhg2-bg9f-4dd6-9f03-b1235e883365"; //这是权限为admin（会员）的ROLE id
         String userRoleId = UUID.randomUUID().toString();
         userSignService.saveUserRole(userRoleId,uid,rid);
         return userSignService.saveSignUser(user);
@@ -75,6 +78,48 @@ public class UserSignController {
             return Result.fail();
         }else{
             return Result.success(200,userSignService.findUserAndAuthorAttention(authorId,userId,start,end));
+        }
+    }
+
+    /**
+     * 用户通过id获取自身信息
+     * @param userId
+     * @return
+     */
+    @GetMapping("/admin/findUserInfoById")
+    public Result findUserInfoById(@RequestParam(value = "userId", required = false) String userId){
+        if(userId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,userSignService.findUserInfoById(userId));
+        }
+    }
+
+    /**
+     * 用户保存更新用户信息
+     * @param userInfo
+     * @return
+     */
+    @PostMapping("/admin/saveUserInfoById")
+    public Result saveUserInfoById(@RequestBody Map userInfo){
+        if(userInfo == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,userSignService.saveUserInfoById(userInfo));
+        }
+    }
+
+    /**
+     * 用户头像修改
+     * @param userInfo
+     * @return
+     */
+    @PostMapping("/admin/updateUserAvatarById")
+    public Result updateUserAvatarById(@RequestBody Map userInfo){
+        if(userInfo == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,userSignService.updateUserAvatarById(userInfo));
         }
     }
 

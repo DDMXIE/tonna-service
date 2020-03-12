@@ -110,6 +110,20 @@ public class UserSignController {
     }
 
     /**
+     * 用户修改密码
+     * @param userInfo
+     * @return
+     */
+    @PostMapping("/admin/saveUserPassById")
+    public Result saveUserPassById(@RequestBody Map userInfo){
+        if(userInfo == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,userSignService.saveUserPassById(userInfo));
+        }
+    }
+
+    /**
      * 用户头像修改
      * @param userInfo
      * @return

@@ -187,6 +187,20 @@ public class ArticleController {
     }
 
     /**
+     * 用户查看自己收藏的文章
+     * @param userId
+     * @return
+     */
+    @GetMapping("/admin/findCollectByUserId")
+    public Result findCollectByUserId(@RequestParam(value = "userId", required = false) String userId){
+        if(userId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findCollectByUserId(userId));
+        }
+    }
+
+    /**
      * 用户根据id查询用户动态
      * @param userId
      * @param start

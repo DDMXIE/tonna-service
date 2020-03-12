@@ -241,6 +241,29 @@ public class ArticleService {
     }
 
     /**
+     * 用户查看自己收藏的文章
+     * @param userId
+     * @return List
+     */
+    public List<ArticleFindAllVO> findCollectByUserId(String userId){
+        List<Article> myCollect =  articleMapper.findCollectByUserId(userId);
+        List<ArticleFindAllVO> newlist = new ArrayList<>();
+        for(Article article : myCollect){
+            ArticleFindAllVO articleFindAllVO = new ArticleFindAllVO();
+            articleFindAllVO.setARTICLE(article);
+            articleFindAllVO.setIMG_URL(utilService.getImgStr(article.getARTICLE_CONTENT_HTML()));
+            articleFindAllVO.setARTICLE_INTRODUCE(utilService.removeHtml(article.getARTICLE_CONTENT_HTML()));
+            List userlist = articleMapper.findAuthorById(article.getARTICLE_ORIGIN_USER_ID());
+            User user = (User) userlist.get(0);
+            articleFindAllVO.setARTICLE_AUTHOR(user.getUSER_NAME());
+            articleFindAllVO.setTALK_NUM(talkMapper.countTalkByArticleId(article.getARTICLE_ID()));
+            articleFindAllVO.setLIKE_NUM(articleMapper.countLikeByArticleId(article.getARTICLE_ID()));
+            newlist.add(articleFindAllVO);
+        }
+        return newlist;
+    }
+
+    /**
      * 用户根据用户id查询动态
      * @param userId
      * @param start

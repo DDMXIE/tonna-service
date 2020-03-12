@@ -12,6 +12,7 @@ import com.tony.tonna.mapper.UserMapper;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -138,6 +139,18 @@ public class UserSignService {
         String userTel = userInfo.get("userTel").toString();
         String userIntroduce = userInfo.get("userIntroduce").toString();
         return userMapper.saveUserInfoById(userId,username,userTel,userIntroduce);
+    }
+
+    /**
+     * 用户修改密码
+     * @param userInfo
+     * @return
+     */
+    public int saveUserPassById(Map userInfo){
+        String userId = userInfo.get("userId").toString();
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
+        String encoderPassword = encoder.encode(userInfo.get("password").toString());
+        return userMapper.saveUserPassById(userId,encoderPassword);
     }
 
     /**

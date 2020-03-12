@@ -44,6 +44,11 @@
          WHERE USER_ID=#{userId}
     </update>
 
+    <update id="saveUserPassById"  parameterType="string">
+         update USER SET USER_PASSWORD=#{encoderPassword}
+         WHERE USER_ID=#{userId}
+    </update>
+
     <update id="updateUserAvatarById"  parameterType="string">
          update USER SET USER_IMG=#{userImg}
          WHERE USER_ID=#{userId}

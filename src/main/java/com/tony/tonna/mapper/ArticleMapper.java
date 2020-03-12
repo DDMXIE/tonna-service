@@ -136,6 +136,13 @@ public interface ArticleMapper {
     int deleteCollect(@Param("userId")String userId,@Param("articleId")String articleId);
 
     /**
+     * 用户查看自己收藏的文章
+     * @param userId
+     * @return
+     */
+    List<Article> findCollectByUserId(@Param("userId")String userId);
+
+    /**
      * 用户增加动态信息
      * @param activityId
      * @param userId

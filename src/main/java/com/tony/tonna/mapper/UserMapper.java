@@ -53,7 +53,14 @@ public interface UserMapper {
     int saveUserInfoById(@Param("userId")String userId,@Param("username")String username,@Param("userTel")String userTel,@Param("userIntroduce")String userIntroduce);
 
     /**
-     * 用户保存更新用户信息
+     * 用户修改密码
+     * @param userId
+     * @return
+     */
+    int saveUserPassById(@Param("userId")String userId,@Param("encoderPassword")String encoderPassword);
+
+    /**
+     * 用户保存用户头像信息
      * @param userId
      * @return
      */

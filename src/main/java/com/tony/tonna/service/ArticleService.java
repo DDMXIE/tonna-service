@@ -137,6 +137,14 @@ public class ArticleService {
     }
 
     /**
+     * 获取热度笔记
+     * @return
+     */
+    public List<ArticleHotVO> findHotArticle(){
+        return articleMapper.findHotArticle();
+    }
+
+    /**
      * 用户根据id获取笔记信息
      * @param articleId
      * @return

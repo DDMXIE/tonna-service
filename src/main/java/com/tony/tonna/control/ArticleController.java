@@ -121,6 +121,15 @@ public class ArticleController {
     }
 
     /**
+     * 获取热度笔记
+     * @return Result
+     */
+    @GetMapping("/tonna/findHotArticle")
+    public Result findHotArticle(){
+        return Result.success(200,articleService.findHotArticle());
+    }
+
+    /**
      * 用户根据id获取笔记信息
      * @param articleId
      * @return Result

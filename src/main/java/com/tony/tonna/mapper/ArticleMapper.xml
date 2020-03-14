@@ -44,6 +44,17 @@
         ORDER BY A.CREATE_DATE DESC
     </select>
 
+    <select id="findHotArticle" parameterType="string"  resultType="com.tony.tonna.VO.ArticleHotVO">
+       select A.*,UT.COUNT_NUM,C.TYPE_NAME from
+        (select AL.ARTICLE_ID, count(USER_ID) as COUNT_NUM from ARTICLE_LIKE AL
+        GROUP BY AL.ARTICLE_ID
+        ORDER BY count(Al.USER_ID) DESC) UT,ARTICLE A,CONST C
+        where 1=1
+        and A.TYPE_ID = C.TYPE_ID
+        and CONST_TYPE = 'ARTICLE_TYPE'
+        and A.ARTICLE_ID = UT.ARTICLE_ID
+    </select>
+
     <select id="findAuthorById" parameterType="string"  resultType="com.tony.tonna.entity.User">
         SELECT U.* FROM USER U WHERE 1=1
         <if test="authorId!= '' and authorId!= null">

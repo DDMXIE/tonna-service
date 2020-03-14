@@ -7,6 +7,7 @@ package com.tony.tonna.mapper;
 
 import com.tony.tonna.VO.ActivityVO;
 import com.tony.tonna.VO.ArticleCollectVO;
+import com.tony.tonna.VO.ArticleHotVO;
 import com.tony.tonna.VO.ArticleLikeVO;
 import com.tony.tonna.entity.Article;
 import com.tony.tonna.entity.User;
@@ -62,6 +63,12 @@ public interface ArticleMapper {
      * @return
      */
     List<Article> findArticleByName(@Param("articleName")String articleName);
+
+    /**
+     * 获取热度笔记
+     * @return
+     */
+    List<ArticleHotVO> findHotArticle();
 
     /**
      * 根据作者id查询用户信息

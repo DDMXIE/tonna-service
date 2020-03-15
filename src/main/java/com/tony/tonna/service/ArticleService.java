@@ -145,6 +145,14 @@ public class ArticleService {
     }
 
     /**
+     * 获取作者推荐
+     * @return
+     */
+    public List<AuthorRecommendVO> findRecommendAuthor(){
+        return articleMapper.findRecommendAuthor();
+    }
+
+    /**
      * 用户根据id获取笔记信息
      * @param articleId
      * @return

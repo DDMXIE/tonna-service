@@ -55,6 +55,15 @@
         and A.ARTICLE_ID = UT.ARTICLE_ID
     </select>
 
+    <select id="findRecommendAuthor" parameterType="string"  resultType="com.tony.tonna.VO.AuthorRecommendVO">
+      select U.USER_ID,U.USER_NAME,U.USER_IMG,U.USER_INTRODUCE,ARTICLE_COUNT_NUM from USER U,
+        (select AL.ARTICLE_ORIGIN_USER_ID,count(Al.ARTICLE_ID) as ARTICLE_COUNT_NUM from ARTICLE AL
+        GROUP BY AL.ARTICLE_ORIGIN_USER_ID
+        ORDER BY ARTICLE_COUNT_NUM DESC) UT
+        where 1=1
+        and U.USER_ID = UT.ARTICLE_ORIGIN_USER_ID
+    </select>
+
     <select id="findAuthorById" parameterType="string"  resultType="com.tony.tonna.entity.User">
         SELECT U.* FROM USER U WHERE 1=1
         <if test="authorId!= '' and authorId!= null">

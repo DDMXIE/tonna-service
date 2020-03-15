@@ -130,6 +130,15 @@ public class ArticleController {
     }
 
     /**
+     * 获取作者推荐
+     * @return Result
+     */
+    @GetMapping("/tonna/findRecommendAuthor")
+    public Result findRecommendAuthor(){
+        return Result.success(200,articleService.findRecommendAuthor());
+    }
+
+    /**
      * 用户根据id获取笔记信息
      * @param articleId
      * @return Result

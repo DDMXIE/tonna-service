@@ -5,10 +5,7 @@
  */
 package com.tony.tonna.mapper;
 
-import com.tony.tonna.VO.ActivityVO;
-import com.tony.tonna.VO.ArticleCollectVO;
-import com.tony.tonna.VO.ArticleHotVO;
-import com.tony.tonna.VO.ArticleLikeVO;
+import com.tony.tonna.VO.*;
 import com.tony.tonna.entity.Article;
 import com.tony.tonna.entity.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -69,6 +66,12 @@ public interface ArticleMapper {
      * @return
      */
     List<ArticleHotVO> findHotArticle();
+
+    /**
+     * 获取作者推荐
+     * @return
+     */
+    List<AuthorRecommendVO> findRecommendAuthor();
 
     /**
      * 根据作者id查询用户信息

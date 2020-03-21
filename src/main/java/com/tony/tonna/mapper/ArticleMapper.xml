@@ -32,6 +32,7 @@
         </if>
         and (A.ARTICLE_STATUS='1' OR A.ARTICLE_STATUS='3')
         and A.IS_DELETE = '2'
+        and A.ARTICLE_SECURITY = '2'
         ORDER BY A.CREATE_DATE DESC
         limit #{start},#{end}
     </select>
@@ -166,4 +167,10 @@
         SELECT COUNT(*) FROM ARTICLE_COLLECT AC WHERE 1=1
         AND AC.IS_DELETE = '2'
     </select>
+
+    <update id="updateArticleBySuper"  parameterType="string">
+         update ARTICLE SET ARTICLE_TITLE=#{articleTitle},ARTICLE_CONTENT=#{articleContent},ARTICLE_CONTENT_HTML=#{articleContentHtml},
+         TYPE_ID=#{typeId},ARTICLE_SECURITY=#{articleSecurity}
+         where ARTICLE_ID=#{articleId}
+    </update>
 </mapper>

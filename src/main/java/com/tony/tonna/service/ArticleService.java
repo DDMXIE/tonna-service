@@ -399,13 +399,28 @@ public class ArticleService {
             newlist.add(articleFindAllVO);
         }
         int firstIndex = (start - 1) * end;
-        int lastIndex = start * end;
+        int lastIndex = (start * end);
         if(lastIndex > newlist.size()){
-            lastIndex = firstIndex+(lastIndex - newlist.size());
+            lastIndex = firstIndex+(newlist.size() - firstIndex);
         }
         outputData.put("total",newlist.size());
         outputData.put("userList",newlist.subList(firstIndex,lastIndex));
         return outputData;
+    }
+
+    /**
+     * 管理员修改笔记信息
+     * @param inputData
+     * @return
+     */
+    public int updateArticleBySuper(Map inputData){
+        String articleId = inputData.get("articleId").toString();
+        String articleTitle = inputData.get("articleTitle").toString();
+        String articleContentHtml = inputData.get("articleContentHtml").toString();
+        String articleContent = inputData.get("articleContent").toString();
+        String typeId = inputData.get("typeId").toString();
+        String articleSecurity = inputData.get("articleSecurity").toString();
+        return articleMapper.updateArticleBySuper(articleId,articleTitle,articleContentHtml,articleContent,typeId,articleSecurity);
     }
 
 

@@ -270,4 +270,14 @@ public class ArticleController {
                                   @RequestParam(value = "end", required = false) Integer end){
         return Result.success(200,articleService.findAllArticleByPage(start,end));
     }
+
+    /**
+     * 管理员修改笔记信息
+     * @param inputData
+     * @return
+     */
+    @PostMapping("/super/updateArticleBySuper")
+    public Result updateArticleBySuper(@RequestBody Map inputData){
+        return Result.success(200,articleService.updateArticleBySuper(inputData));
+    }
 }

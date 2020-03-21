@@ -211,4 +211,17 @@ public interface ArticleMapper {
      * @return
      */
     int countCollectNum();
+
+    /**
+     * 管理员修改笔记信息
+     * @param articleId
+     * @param articleContentHtml
+     * @param articleContent
+     * @param typeId
+     * @param articleSecurity
+     * @return
+     */
+    int updateArticleBySuper(@Param("articleId")String articleId,@Param("articleTitle")String articleTitle,
+                             @Param("articleContentHtml")String articleContentHtml,@Param("articleContent")String articleContent,
+                             @Param("typeId") String typeId,@Param("articleSecurity")String articleSecurity);
 }

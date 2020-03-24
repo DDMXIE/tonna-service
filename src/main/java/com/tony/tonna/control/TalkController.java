@@ -64,4 +64,40 @@ public class TalkController {
             return Result.success(200,talkService.findAllTalk(articleId));
         }
     }
+
+    /**
+     * 管理员分页获取评论信息
+     * @param start
+     * @param end
+     * @return
+     */
+    @GetMapping("/super/findAllTalkBySuper")
+    public Result findAllTalkBySuper( @RequestParam(value = "start", required = false) Integer start,
+                                        @RequestParam(value = "end", required = false) Integer end){
+        return Result.success(200,talkService.findAllTalkBySuper(start,end));
+    }
+
+    /**
+     * 管理员删除评论（软删）
+     * @param talkId
+     * @return
+     */
+    @GetMapping("/super/deleteTalkBySuper")
+    public Result deleteTalkBySuper(@RequestParam(value = "talkId", required = false) String talkId){
+        if(talkId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,talkService.deleteTalkBySuper(talkId));
+        }
+    }
+
+    /**
+     * 管理员修改评论信息
+     * @param inputData
+     * @return
+     */
+    @PostMapping("/super/updateTalkBySuper")
+    public Result updateTalkBySuper(@RequestBody Map inputData){
+        return Result.success(200,talkService.updateTalkBySuper(inputData));
+    }
 }

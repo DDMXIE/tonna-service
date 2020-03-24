@@ -173,4 +173,14 @@
          TYPE_ID=#{typeId},ARTICLE_SECURITY=#{articleSecurity}
          where ARTICLE_ID=#{articleId}
     </update>
+
+    <update id="checkArticleBySuper"  parameterType="string">
+         update ARTICLE SET ARTICLE_STATUS=#{articleStatus}
+         where ARTICLE_ID=#{articleId}
+    </update>
+
+    <update id="deleteArticleBySuper"  parameterType="string">
+         update ARTICLE SET IS_DELETE = '1'
+         where ARTICLE_ID=#{articleId}
+    </update>
 </mapper>

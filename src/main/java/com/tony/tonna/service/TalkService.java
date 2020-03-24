@@ -52,4 +52,43 @@ public class TalkService {
         }
         return newlist;
     }
+
+    /**
+     * 管理员分页获取评论信息
+     * @param start
+     * @param end
+     * @return
+     */
+    public Map findAllTalkBySuper(int start,int end){
+        Map outputData = new HashMap();
+        List newlist = talkMapper.findAllTalkBySuper();
+        int firstIndex = (start - 1) * end;
+        int lastIndex = (start * end);
+        if(lastIndex > newlist.size()){
+            lastIndex = firstIndex+(newlist.size() - firstIndex);
+        }
+        outputData.put("total",newlist.size());
+        outputData.put("userList",newlist.subList(firstIndex,lastIndex));
+        return outputData;
+    }
+
+    /**
+     * 管理员删除评论
+     * @param talkId
+     * @return
+     */
+    public int deleteTalkBySuper(String talkId){
+        return talkMapper.deleteTalkBySuper(talkId);
+    }
+
+    /**
+     * 管理员修改评论信息
+     * @param inputData
+     * @return
+     */
+    public int updateTalkBySuper(Map inputData){
+        String talkId = inputData.get("talkId").toString();
+        String replyContent = inputData.get("replyContent").toString();
+        return talkMapper.updateTalkBySuper(talkId,replyContent);
+    }
 }

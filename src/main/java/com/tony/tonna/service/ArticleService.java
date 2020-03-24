@@ -423,5 +423,24 @@ public class ArticleService {
         return articleMapper.updateArticleBySuper(articleId,articleTitle,articleContentHtml,articleContent,typeId,articleSecurity);
     }
 
+    /**
+     * 管理员审核文章
+     * @param articleId
+     * @param articleStatus
+     * @return
+     */
+    public int checkArticleBySuper(String articleId,String articleStatus){
+        return articleMapper.checkArticleBySuper(articleId,articleStatus);
+    }
+
+    /**
+     * 管理员删除文章
+     * @param articleId
+     * @return
+     */
+    public int deleteArticleBySuper(String articleId){
+        return articleMapper.deleteArticleBySuper(articleId);
+    }
+
 
 }

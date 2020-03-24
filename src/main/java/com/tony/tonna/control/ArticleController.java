@@ -280,4 +280,34 @@ public class ArticleController {
     public Result updateArticleBySuper(@RequestBody Map inputData){
         return Result.success(200,articleService.updateArticleBySuper(inputData));
     }
+
+    /**
+     * 管理员审核文章
+     * @param articleId
+     * @param articleStatus
+     * @return
+     */
+    @GetMapping("/super/checkArticleBySuper")
+    public Result checkArticleBySuper(@RequestParam(value = "articleId", required = false) String articleId,
+                               @RequestParam(value = "articleStatus", required = false) String articleStatus){
+        if(articleId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.checkArticleBySuper(articleId,articleStatus));
+        }
+    }
+
+    /**
+     * 管理员删除文章（软删）
+     * @param articleId
+     * @return
+     */
+    @GetMapping("/super/deleteArticleBySuper")
+    public Result deleteArticleBySuper(@RequestParam(value = "articleId", required = false) String articleId){
+        if(articleId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.deleteArticleBySuper(articleId));
+        }
+    }
 }

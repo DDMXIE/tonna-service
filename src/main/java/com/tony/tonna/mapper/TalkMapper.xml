@@ -45,4 +45,22 @@
         SELECT COUNT(*) FROM TALK T WHERE 1=1
         AND T.IS_DELETE = '2'
     </select>
+
+    <select id="findAllTalkBySuper" parameterType="string"  resultType="com.tony.tonna.VO.TalkSuperVO">
+       SELECT T.*,USER_IMG,A.ARTICLE_TITLE FROM TALK T,USER U,ARTICLE A WHERE 1=1
+            AND A.ARTICLE_ID = T.ARTICLE_ID
+            AND T.OWNER_ID = U.USER_ID
+            AND T.IS_DELETE = '2'
+        ORDER BY T.CREATE_DATE DESC
+    </select>
+
+    <update id="deleteTalkBySuper"  parameterType="string">
+         update TALK SET IS_DELETE = '1'
+         where TALK_ID=#{talkId}
+    </update>
+
+    <update id="updateTalkBySuper"  parameterType="string">
+         update TALK SET REPLY_CONTENT=#{replyContent}
+         where TALK_ID=#{talkId}
+    </update>
 </mapper>

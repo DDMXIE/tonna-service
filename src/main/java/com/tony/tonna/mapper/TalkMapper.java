@@ -7,6 +7,7 @@ package com.tony.tonna.mapper;
 
 import com.tony.tonna.VO.ArticleLikeVO;
 import com.tony.tonna.VO.TalkImgVO;
+import com.tony.tonna.VO.TalkSuperVO;
 import com.tony.tonna.entity.Talk;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -56,4 +57,25 @@ public interface TalkMapper {
      * @return
      */
     int countTalkNum();
+
+    /**
+     * 管理员获取全部评论
+     * @return
+     */
+    List<TalkSuperVO> findAllTalkBySuper();
+
+    /**
+     * 管理员删除评论
+     * @param talkId
+     * @return
+     */
+    int deleteTalkBySuper(@Param("talkId")String talkId);
+
+    /**
+     * 管理员修改评论信息
+     * @param talkId
+     * @param replyContent
+     * @return
+     */
+    int updateTalkBySuper(@Param("talkId")String talkId,@Param("replyContent")String replyContent);
 }

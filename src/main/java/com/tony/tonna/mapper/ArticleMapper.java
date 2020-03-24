@@ -224,4 +224,19 @@ public interface ArticleMapper {
     int updateArticleBySuper(@Param("articleId")String articleId,@Param("articleTitle")String articleTitle,
                              @Param("articleContentHtml")String articleContentHtml,@Param("articleContent")String articleContent,
                              @Param("typeId") String typeId,@Param("articleSecurity")String articleSecurity);
+
+    /**
+     * 管理员审核文章
+     * @param articleId
+     * @param articleStatus
+     * @return
+     */
+    int checkArticleBySuper(@Param("articleId")String articleId,@Param("articleStatus")String articleStatus);
+
+    /**
+     * 管理员删除文章
+     * @param articleId
+     * @return
+     */
+    int deleteArticleBySuper(@Param("articleId")String articleId);
 }

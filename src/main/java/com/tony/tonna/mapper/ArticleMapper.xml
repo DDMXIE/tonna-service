@@ -158,6 +158,21 @@
         AND A.IS_DELETE = '2'
     </select>
 
+    <select id="findDraftArticle"  resultType="com.tony.tonna.entity.Article">
+        select A.* from ARTICLE A where 1=1
+        and A.ARTICLE_STATUS = '2'
+        and A.ARTICLE_ORIGIN_USER_ID=#{userId}
+        and IS_DELETE = '2'
+        order by A.CREATE_DATE DESC
+    </select>
+
+    <select id="findUserArticleByUserId"  resultType="com.tony.tonna.entity.Article">
+        select A.* from ARTICLE A where 1=1
+        and A.ARTICLE_ORIGIN_USER_ID=#{userId}
+        and IS_DELETE = '2'
+        order by A.CREATE_DATE DESC
+    </select>
+
     <select id="countArticleNum" parameterType="string"  resultType="java.lang.Integer">
         SELECT COUNT(*) FROM ARTICLE A WHERE 1=1
         AND A.IS_DELETE = '2'

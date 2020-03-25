@@ -251,6 +251,46 @@ public class ArticleController {
     }
 
     /**
+     * 用户草稿箱获取笔记信息
+     * @param userId
+     * @return
+     */
+    @GetMapping("/admin/findDraftArticle")
+    public Result findDraftArticle( @RequestParam(value = "userId", required = false) String userId){
+        if(userId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.findDraftArticle(userId));
+        }
+    }
+
+    /**
+     * 用户管理笔记-获取自己的笔记信息
+     * @param userId
+     * @return
+     */
+    @GetMapping("/admin/findUserArticleByUserId")
+    public Result findUserArticleByUserId(  @RequestParam(value = "start", required = false) Integer start,
+                                         @RequestParam(value = "end", required = false) Integer end,
+                                         @RequestParam(value = "userId", required = false) String userId){
+        return Result.success(200,articleService.findUserArticleByUserId(userId,start,end));
+    }
+
+    /**
+     * 用户管理笔记-删除文章（软删）
+     * @param articleId
+     * @return
+     */
+    @GetMapping("/admin/deleteArticleByUser")
+    public Result deleteArticleByUser(@RequestParam(value = "articleId", required = false) String articleId){
+        if(articleId == null){
+            return Result.fail();
+        }else{
+            return Result.success(200,articleService.deleteArticleByUser(articleId));
+        }
+    }
+
+    /**
      * 后台-加载文章类型和统计数量
      * @return Result
      */

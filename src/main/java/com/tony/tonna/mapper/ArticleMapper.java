@@ -201,6 +201,20 @@ public interface ArticleMapper {
     int findAriticleTypeNum(@Param("typeId")String typeId);
 
     /**
+     * 用户草稿箱获取笔记信息
+     * @param userId
+     * @return List
+     */
+    List<Article> findDraftArticle(@Param("userId")String userId);
+
+    /**
+     * 根据用户id查询该用户笔记详情
+     * @param userId
+     * @return List
+     */
+    List<Article> findUserArticleByUserId(@Param("userId")String userId);
+
+    /**
      * 后台-获取基础信息-获取笔记总数
      * @return
      */

@@ -359,6 +359,72 @@ public class ArticleService {
     }
 
     /**
+     * 用户草稿箱获取笔记信息
+     * @param userId
+     * @return
+     */
+    public List findDraftArticle(String userId){
+        List<Article> list = articleMapper.findDraftArticle(userId);
+        List<ArticleFindAllVO> newlist = new ArrayList<>();
+        for(Article article : list){
+            ArticleFindAllVO articleFindAllVO = new ArticleFindAllVO();
+            articleFindAllVO.setARTICLE(article);
+            articleFindAllVO.setIMG_URL(utilService.getImgStr(article.getARTICLE_CONTENT_HTML()));
+            articleFindAllVO.setARTICLE_INTRODUCE(utilService.removeHtml(article.getARTICLE_CONTENT_HTML()));
+            List userlist = articleMapper.findAuthorById(article.getARTICLE_ORIGIN_USER_ID());
+            User user = (User) userlist.get(0);
+            articleFindAllVO.setARTICLE_AUTHOR(user.getUSER_NAME());
+            articleFindAllVO.setUSER_IMG(user.getUSER_IMG());
+            articleFindAllVO.setTALK_NUM(talkMapper.countTalkByArticleId(article.getARTICLE_ID()));
+            articleFindAllVO.setLIKE_NUM(articleMapper.countLikeByArticleId(article.getARTICLE_ID()));
+            newlist.add(articleFindAllVO);
+        }
+        return newlist;
+    }
+
+    /**
+     * 用户管理笔记-获取自己的笔记信息
+     * @param start
+     * @param end
+     * @return
+     */
+    public Map findUserArticleByUserId(String userId,int start,int end){
+        Map outputData = new HashMap();
+        List<Article> list =  articleMapper.findUserArticleByUserId(userId);
+        List<ArticleFindAllVO> newlist = new ArrayList<>();
+        for(Article article : list){
+            ArticleFindAllVO articleFindAllVO = new ArticleFindAllVO();
+            articleFindAllVO.setARTICLE(article);
+            articleFindAllVO.setIMG_URL(utilService.getImgStr(article.getARTICLE_CONTENT_HTML()));
+            articleFindAllVO.setARTICLE_INTRODUCE(utilService.removeHtml(article.getARTICLE_CONTENT_HTML()));
+            List userlist = articleMapper.findAuthorById(article.getARTICLE_ORIGIN_USER_ID());
+            User user = (User) userlist.get(0);
+            articleFindAllVO.setARTICLE_AUTHOR(user.getUSER_NAME());
+            articleFindAllVO.setUSER_IMG(user.getUSER_IMG());
+            articleFindAllVO.setTALK_NUM(talkMapper.countTalkByArticleId(article.getARTICLE_ID()));
+            articleFindAllVO.setLIKE_NUM(articleMapper.countLikeByArticleId(article.getARTICLE_ID()));
+            newlist.add(articleFindAllVO);
+        }
+        int firstIndex = (start - 1) * end;
+        int lastIndex = (start * end);
+        if(lastIndex > newlist.size()){
+            lastIndex = firstIndex+(newlist.size() - firstIndex);
+        }
+        outputData.put("total",newlist.size());
+        outputData.put("userList",newlist.subList(firstIndex,lastIndex));
+        return outputData;
+    }
+
+    /**
+     * 用户管理笔记-删除文章（软删）
+     * @param articleId
+     * @return
+     */
+    public int deleteArticleByUser(String articleId){
+        return articleMapper.deleteArticleBySuper(articleId);
+    }
+
+    /**
      * 后台-加载文章类型和统计数量
      * @return List
      */
